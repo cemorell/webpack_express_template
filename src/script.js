@@ -1,7 +1,6 @@
-// import React from 'react';
-// import ReactDOM from 'react-dom';
-// import SomeComponent from './components/some_component';
 
-// ReactDOM.render(<SomeComponent />, document.getElementById('some-id'));
+import React from 'react';
+import ReactDOM from 'react-dom';
+import DateContainer from './components/date-container';
 
-console.log('herro');
+ReactDOM.render(<DateContainer />, document.getElementById('dates'));
