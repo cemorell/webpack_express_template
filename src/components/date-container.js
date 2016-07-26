@@ -1,4 +1,7 @@
 import React from 'react';
+import 'whatwg-fetch';
+import Search from './search';
+
 
 class DateContainer extends React.Component {
  constructor(props){
@@ -8,7 +11,7 @@ class DateContainer extends React.Component {
   render(){
     return (
     <div>
-      <h1> Hello </h1>
+      <Search />
     </div>
     )
   }
