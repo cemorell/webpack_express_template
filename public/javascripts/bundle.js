@@ -21134,12 +21134,26 @@
 	  }
 	
 	  _createClass(DateContainer, [{
+	    key: '_handleYelp',
+	    value: function _handleYelp(theme, city) {
+	
+	      fetch('/yelp?theme=' + theme + '&city=' + city, {
+	        method: 'GET'
+	      }).then(function (response) {
+	        return response.json();
+	      }).then(function (results) {
+	        console.log(results);
+	      }).catch(function (ex) {
+	        console.log('parsing failed', ex);
+	      });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement(_search2.default, null)
+	        _react2.default.createElement(_search2.default, { searchYelp: this._handleYelp.bind(this) })
 	      );
 	    }
 	  }]);
@@ -21637,9 +21651,7 @@
 	    key: '_handleSearch',
 	    value: function _handleSearch(event) {
 	      event.preventDefault();
-	      this.props.searchfunctiontobenamed(this.refs.DaySearch.value);
-	      this.props.search(this.refs.ThemeSearch.value);
-	      this.props.search(this.refs.TimeoDay.value);
+	      this.props.searchYelp(this.refs.themeSearch.value, this.refs.city.value);
 	    }
 	  }, {
 	    key: 'render',
@@ -21650,9 +21662,8 @@
 	        _react2.default.createElement(
 	          'form',
 	          { onSubmit: this._handleSearch.bind(this) },
-	          _react2.default.createElement('input', { type: 'search', placeholder: '01/01/2016', ref: 'DaySearch' }),
-	          _react2.default.createElement('input', { type: 'search', placeholder: 'What theme?', ref: 'ThemeSearch' }),
-	          _react2.default.createElement('input', { type: 'search', placeholder: 'What timeISH?', ref: 'TimeoDay' }),
+	          _react2.default.createElement('input', { type: 'search', placeholder: 'What theme?', ref: 'themeSearch' }),
+	          _react2.default.createElement('input', { type: 'search', placeholder: 'What City?', ref: 'city' }),
 	          _react2.default.createElement('input', { type: 'submit', value: 'Search on!' })
 	        )
 	      );
