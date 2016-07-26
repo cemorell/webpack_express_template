@@ -21137,14 +21137,28 @@
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(DateContainer).call(this, props));
 	
 	    _this.state = {
-	      weatherlist: [],
-	      themething: ""
+	      weatherlist: []
 	
 	    };
 	    return _this;
 	  }
 	
 	  _createClass(DateContainer, [{
+	    key: '_handleYelp',
+	    value: function _handleYelp(theme, city) {
+	
+	      fetch('/yelp?theme=' + theme + '&city=' + city, {
+	        method: 'GET'
+	      }).then(function (response) {
+	        return response.json();
+	      }).then(function (results) {
+	        console.log(results);
+	      });
+	      // .catch((ex) => {
+	      //   console.log('parsing failed', ex)
+	      // })
+	    }
+	  }, {
 	    key: '_fetchWeather',
 	    value: function _fetchWeather(searchTerm) {
 	      var _this2 = this;
@@ -21153,7 +21167,6 @@
 	        return response.json();
 	      }).then(function (results) {
 	        var week = results.forecast.txt_forecast.forecastday;
-	        console.log(week);
 	        _this2.setState({
 	          weatherlist: week
 	        });
@@ -21167,7 +21180,7 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement(_search2.default, { search: this._fetchWeather.bind(this) }),
+	        _react2.default.createElement(_search2.default, { searchYelp: this._handleYelp.bind(this), search: this._fetchWeather.bind(this) }),
 	        _react2.default.createElement(_weatherList2.default, { weatherlist: this.state.weatherlist })
 	      );
 	    }
@@ -21666,7 +21679,8 @@
 	    key: '_handleSearch',
 	    value: function _handleSearch(event) {
 	      event.preventDefault();
-	      this.props.search(this.refs.City.value);
+	      this.props.search(this.refs.city.value);
+	      this.props.searchYelp(this.refs.themeSearch.value, this.refs.city.value);
 	    }
 	  }, {
 	    key: 'render',
@@ -21677,9 +21691,8 @@
 	        _react2.default.createElement(
 	          'form',
 	          { onSubmit: this._handleSearch.bind(this) },
-	          _react2.default.createElement('input', { type: 'search', placeholder: '01/01/2016', ref: 'DaySearch' }),
-	          _react2.default.createElement('input', { type: 'search', placeholder: 'What theme?', ref: 'ThemeSearch' }),
-	          _react2.default.createElement('input', { type: 'search', placeholder: 'What City?', ref: 'City' }),
+	          _react2.default.createElement('input', { type: 'search', placeholder: 'What theme?', ref: 'themeSearch' }),
+	          _react2.default.createElement('input', { type: 'search', placeholder: 'What City?', ref: 'city' }),
 	          _react2.default.createElement('input', { type: 'submit', value: 'Search on!' })
 	        )
 	      );

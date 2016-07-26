@@ -9,11 +9,25 @@ class DateContainer extends React.Component {
     super(props);
     this.state = {
       weatherlist: [],
-      themething: ""
 
     };
   }
 
+_handleYelp(theme, city) {
+
+    fetch(`/yelp?theme=${theme}&city=${city}`, {
+      method: 'GET'
+    })
+      .then((response) => {
+        return response.json()
+      })
+      .then((results) => {
+        console.log(results);
+      })
+      // .catch((ex) => {
+      //   console.log('parsing failed', ex)
+      // })
+  }
 
 
   _fetchWeather(searchTerm) {
@@ -24,7 +38,6 @@ class DateContainer extends React.Component {
       })
       .then((results) => {
         let week = results.forecast.txt_forecast.forecastday
-        console.log(week)
         this.setState({
           weatherlist: week
         })
@@ -39,7 +52,7 @@ class DateContainer extends React.Component {
   render(){
     return (
     <div>
-      <Search search={this._fetchWeather.bind(this)}/>
+      <Search searchYelp={this._handleYelp.bind(this)} search={this._fetchWeather.bind(this)}/>
       <WeatherList weatherlist={this.state.weatherlist}/>
     </div>
     )
