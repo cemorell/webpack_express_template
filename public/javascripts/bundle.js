@@ -21121,10 +21121,10 @@
 	var DateContainer = function (_React$Component) {
 	  _inherits(DateContainer, _React$Component);
 	
-	  function DateContainer() {
+	  function DateContainer(props) {
 	    _classCallCheck(this, DateContainer);
 	
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(DateContainer).call(this));
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(DateContainer).call(this, props));
 	  }
 	
 	  _createClass(DateContainer, [{
@@ -21136,7 +21136,7 @@
 	        _react2.default.createElement(
 	          'h1',
 	          null,
-	          ' Hello'
+	          ' Hello '
 	        )
 	      );
 	    }

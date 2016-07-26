@@ -1,8 +1,8 @@
 import React from 'react';
 
 class SingleEvent extends React.Component {
- constructor(){
-    super();
+ constructor(props){
+    super(props);
   }
 
   render(){

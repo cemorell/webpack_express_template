@@ -1,14 +1,14 @@
 import React from 'react';
 
 class DateContainer extends React.Component {
- constructor(){
-    super();
+ constructor(props){
+    super(props);
   }
 
   render(){
     return (
     <div>
-      <h1> Hello</h1>
+      <h1> Hello </h1>
     </div>
     )
   }
