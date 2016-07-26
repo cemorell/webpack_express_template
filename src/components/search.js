@@ -4,10 +4,16 @@ import Weather from './weather';
 import AllEvents from './all-events';
 
 
-
 class Search extends React.Component {
  constructor(props){
     super(props);
+  }
+
+  _handleSearch(event){
+    event.preventDefault();
+    this.props.searchfunctiontobenamed(this.refs.DaySearch.value);
+    this.props.search(this.refs.ThemeSearch.value);
+    this.props.search(this.refs.TimeoDay.value);
   }
 
   render(){
