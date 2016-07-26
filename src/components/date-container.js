@@ -2,6 +2,7 @@ import React from 'react';
 import 'whatwg-fetch';
 import Search from './search';
 import WeatherList from './weather-list';
+import AllEvents from './all-events';
 
 
 class DateContainer extends React.Component {
@@ -9,6 +10,7 @@ class DateContainer extends React.Component {
     super(props);
     this.state = {
       weatherlist: [],
+      events: []
 
     };
   }
@@ -22,8 +24,11 @@ _handleYelp(theme, city) {
         return response.json()
       })
       .then((results) => {
-        console.log(results);
-      })
+        let these = results.businesses
+        console.log(these)
+        this.setState({
+          events: these
+        })      })
       // .catch((ex) => {
       //   console.log('parsing failed', ex)
       // })
@@ -54,6 +59,7 @@ _handleYelp(theme, city) {
     <div>
       <Search searchYelp={this._handleYelp.bind(this)} search={this._fetchWeather.bind(this)}/>
       <WeatherList weatherlist={this.state.weatherlist}/>
+      <AllEvents yelplist={this.state.events}/>
     </div>
     )
   }
