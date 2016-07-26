@@ -1,18 +1,25 @@
 import React from 'react';
+import 'whatwg-fetch';
+import Search from './search';
+
 
 class DateContainer extends React.Component {
-    constructor(){
-    super();
+ constructor(props){
+    super(props);
   }
-
 
   render(){
     return (
-      <div>
-        <h1> PLEASE WORK </h1>
-      </div>
+    <div>
+      <Search />
+    </div>
     )
   }
 }
 
 export default DateContainer;
+
+
+
+
+
