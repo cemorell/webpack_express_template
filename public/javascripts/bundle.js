@@ -21191,8 +21191,8 @@
 	        'div',
 	        null,
 	        _react2.default.createElement(_search2.default, { searchYelp: this._handleYelp.bind(this), search: this._fetchWeather.bind(this) }),
-	        _react2.default.createElement(_weatherList2.default, { weatherlist: this.state.weatherlist }),
-	        _react2.default.createElement(_allEvents2.default, { yelplist: this.state.events })
+	        _react2.default.createElement(_allEvents2.default, { yelplist: this.state.events }),
+	        _react2.default.createElement(_weatherList2.default, { weatherlist: this.state.weatherlist })
 	      );
 	    }
 	  }]);
@@ -21764,7 +21764,7 @@
 /* 176 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -21794,21 +21794,21 @@
 	  }
 	
 	  _createClass(Weather, [{
-	    key: 'render',
+	    key: "render",
 	    value: function render() {
 	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement('img', { src: this.props.image }),
+	        "div",
+	        { className: "oneweather" },
+	        _react2.default.createElement("img", { src: this.props.image }),
 	        _react2.default.createElement(
-	          'h4',
+	          "h4",
 	          null,
 	          this.props.day
 	        ),
 	        _react2.default.createElement(
-	          'p',
+	          "p",
 	          null,
-	          ' ',
+	          " ",
 	          this.props.text
 	        )
 	      );
@@ -21862,9 +21862,9 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-	        null,
+	        { className: 'col-xs-12 col-md-5' },
 	        this.props.yelplist.map(function (event, index) {
-	          return _react2.default.createElement(_singleEvent2.default, { title: event.name, key: index });
+	          return _react2.default.createElement(_singleEvent2.default, { title: event.name, info: event.snippet_text, image: event.image_url, key: index });
 	        })
 	      );
 	    }
@@ -21917,7 +21917,7 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-	        null,
+	        { className: 'col-xs-12 col-md-5' },
 	        this.props.weatherlist.map(function (weather, index) {
 	          return _react2.default.createElement(_weather2.default, { day: weather.title, text: weather.fcttext, image: weather.icon_url, key: index });
 	        })
@@ -21934,7 +21934,7 @@
 /* 179 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -21964,15 +21964,21 @@
 	  }
 	
 	  _createClass(SingleEvent, [{
-	    key: 'render',
+	    key: "render",
 	    value: function render() {
 	      return _react2.default.createElement(
-	        'div',
-	        null,
+	        "div",
+	        { className: "oneevent" },
+	        _react2.default.createElement("img", { src: this.props.image }),
 	        _react2.default.createElement(
-	          'h4',
+	          "h4",
 	          null,
 	          this.props.title
+	        ),
+	        _react2.default.createElement(
+	          "p",
+	          null,
+	          this.props.info
 	        )
 	      );
 	    }

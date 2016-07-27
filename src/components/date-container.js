@@ -58,8 +58,8 @@ _handleYelp(theme, city) {
     return (
     <div>
       <Search searchYelp={this._handleYelp.bind(this)} search={this._fetchWeather.bind(this)}/>
-      <WeatherList weatherlist={this.state.weatherlist}/>
       <AllEvents yelplist={this.state.events}/>
+      <WeatherList weatherlist={this.state.weatherlist}/>
     </div>
     )
   }
