@@ -22051,7 +22051,7 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-	        { className: 'col-xs-12 col-md-5' },
+	        { className: 'col-xs-12 col-md-5 pic-container' },
 	        this.props.weatherlist.map(function (weather, index) {
 	          return _react2.default.createElement(_weather2.default, { day: weather.title, text: weather.fcttext, image: weather.icon_url, key: index });
 	        })
