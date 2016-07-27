@@ -11,7 +11,7 @@ class Search extends React.Component {
 
   _handleSearch(event){
     event.preventDefault();
-    console.log("Searching!");
+    this.props.search(this.refs.City.value);
   }
 
   render(){
@@ -20,7 +20,7 @@ class Search extends React.Component {
       <form onSubmit={this._handleSearch.bind(this)}>
         <input type="search" placeholder="01/01/2016" ref="DaySearch"  />
         <input type="search" placeholder="What theme?" ref="ThemeSearch"  />
-        <input type="search" placeholder="What zipcode?" ref="Zipcode"  />
+        <input type="search" placeholder="What City?" ref="City"  />
         <input type="submit" value="Search on!" />
       </form>
     </div>
