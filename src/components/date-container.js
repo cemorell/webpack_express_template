@@ -12,7 +12,7 @@ class DateContainer extends React.Component {
     this.state = {
       weatherlist: [],
       events: [],
-      music: {}
+      music: {},
     };
   }
 
@@ -42,14 +42,15 @@ _handleYelp(theme, city) {
       })
       .then((results) => {
         let playlist = results.playlists.items[0]
-        console.log(playlist)
+        let open = playlist.external_urls
+        console.log(playlist.external_urls)
         this.setState({
           music: playlist
         })
       })
-      .catch((ex) => {
-        console.log('parsing failed', ex)
-      })
+      // .catch((ex) => {
+      //   console.log('parsing failed', ex)
+      // })
   }
 
 
@@ -77,7 +78,7 @@ _handleYelp(theme, city) {
     return (
     <div>
       <Search searchYelp={this._handleYelp.bind(this)} music={this._fetchMusic.bind(this)} search={this._fetchWeather.bind(this)}/>
-      <Spotify musicinfo={this.state.music}/>
+      <Spotify musicinfo={this.state.music} />
       <AllEvents yelplist={this.state.events}/>
       <WeatherList weatherlist={this.state.weatherlist}/>
     </div>

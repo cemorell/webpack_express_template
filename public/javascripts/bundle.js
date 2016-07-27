@@ -21180,13 +21180,15 @@
 	        return response.json();
 	      }).then(function (results) {
 	        var playlist = results.playlists.items[0];
-	        console.log(playlist);
+	        var open = playlist.external_urls;
+	        console.log(playlist.external_urls);
 	        _this3.setState({
 	          music: playlist
 	        });
-	      }).catch(function (ex) {
-	        console.log('parsing failed', ex);
 	      });
+	      // .catch((ex) => {
+	      //   console.log('parsing failed', ex)
+	      // })
 	    }
 	  }, {
 	    key: '_fetchWeather',
@@ -21780,7 +21782,7 @@
 	        _react2.default.createElement(
 	          "h1",
 	          null,
-	          this.props.musicinfo.id
+	          this.props.musicinfo.name
 	        )
 	      );
 	    }
