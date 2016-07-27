@@ -9,8 +9,8 @@ constructor(props){
 
   render(){
     return (
-      <div>
-        { this.props.yelplist.map((event, index) => { return (<SingleEvent title={event.name} key={index} />);})}
+      <div className="col-xs-12 col-md-5">
+        { this.props.yelplist.map((event, index) => { return (<SingleEvent title={event.name} info={event.snippet_text} image={event.image_url} key={index} />);})}
       </div>
       );
   }
