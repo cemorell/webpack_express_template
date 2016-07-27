@@ -21128,6 +21128,10 @@
 	
 	var _spotify2 = _interopRequireDefault(_spotify);
 	
+	var _myDate = __webpack_require__(180);
+	
+	var _myDate2 = _interopRequireDefault(_myDate);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -21147,7 +21151,9 @@
 	    _this.state = {
 	      weatherlist: [],
 	      events: [],
-	      music: {}
+	      music: {},
+	      link: {},
+	      image: {}
 	    };
 	    return _this;
 	  }
@@ -21181,9 +21187,12 @@
 	      }).then(function (results) {
 	        var playlist = results.playlists.items[0];
 	        var open = playlist.external_urls;
+	        var view = playlist.images[0];
 	        console.log(playlist.external_urls);
 	        _this3.setState({
-	          music: playlist
+	          music: playlist,
+	          link: open,
+	          image: view
 	        });
 	      });
 	      // .catch((ex) => {
@@ -21213,9 +21222,10 @@
 	        'div',
 	        null,
 	        _react2.default.createElement(_search2.default, { searchYelp: this._handleYelp.bind(this), music: this._fetchMusic.bind(this), search: this._fetchWeather.bind(this) }),
-	        _react2.default.createElement(_spotify2.default, { musicinfo: this.state.music }),
+	        _react2.default.createElement(_spotify2.default, { musicinfo: this.state.music, link: this.state.link, image: this.state.image }),
 	        _react2.default.createElement(_allEvents2.default, { yelplist: this.state.events }),
-	        _react2.default.createElement(_weatherList2.default, { weatherlist: this.state.weatherlist })
+	        _react2.default.createElement(_weatherList2.default, { weatherlist: this.state.weatherlist }),
+	        _react2.default.createElement(_myDate2.default, null)
 	      );
 	    }
 	  }]);
@@ -21744,7 +21754,7 @@
 /* 175 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -21755,6 +21765,10 @@
 	var _react = __webpack_require__(1);
 	
 	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactSpotifyPlayer = __webpack_require__(181);
+	
+	var _reactSpotifyPlayer2 = _interopRequireDefault(_reactSpotifyPlayer);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -21774,14 +21788,20 @@
 	  }
 	
 	  _createClass(Spotify, [{
-	    key: "render",
+	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
-	        "div",
-	        { className: "col-xs-12 col-md-10" },
+	        'div',
+	        { className: 'col-xs-12 col-md-5' },
+	        _react2.default.createElement(_reactSpotifyPlayer2.default, {
+	          uri: 'spotify:album:1TIUsv8qmYLpBEhvmBmyBk',
+	          size: 'large',
+	          view: 'list',
+	          theme: 'list' }),
+	        _react2.default.createElement('img', { src: this.props.image.url }),
 	        _react2.default.createElement(
-	          "h1",
-	          null,
+	          'a',
+	          { href: this.props.link.spotify, target: '_blank' },
 	          this.props.musicinfo.name
 	        )
 	      );
@@ -21912,7 +21932,7 @@
 /* 178 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -21932,6 +21952,8 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
+	var savedDates = [];
+	
 	var SingleEvent = function (_React$Component) {
 	  _inherits(SingleEvent, _React$Component);
 	
@@ -21942,21 +21964,41 @@
 	  }
 	
 	  _createClass(SingleEvent, [{
-	    key: "render",
+	    key: '_saveDate',
+	    value: function _saveDate() {
+	      var newSavedDate = {
+	        image: this.props.image,
+	        title: this.props.title,
+	        info: this.props.info
+	      };
+	      this.firebaseRef.push(newSavedDate);
+	    }
+	  }, {
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      this.firebaseRef = new Firebase('https://build-a-date.firebaseio.com/build-a-date');
+	    }
+	  }, {
+	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
-	        "div",
-	        { className: "oneevent" },
-	        _react2.default.createElement("img", { src: this.props.image }),
+	        'div',
+	        { className: 'oneevent' },
+	        _react2.default.createElement('img', { src: this.props.image }),
 	        _react2.default.createElement(
-	          "h4",
+	          'h4',
 	          null,
 	          this.props.title
 	        ),
 	        _react2.default.createElement(
-	          "p",
+	          'p',
 	          null,
 	          this.props.info
+	        ),
+	        _react2.default.createElement(
+	          'button',
+	          { onClick: this._saveDate.bind(this) },
+	          'Add to my date'
 	        )
 	      );
 	    }
@@ -22021,6 +22063,162 @@
 	}(_react2.default.Component);
 	
 	exports.default = WeatherList;
+
+/***/ },
+/* 180 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _singleEvent = __webpack_require__(178);
+	
+	var _singleEvent2 = _interopRequireDefault(_singleEvent);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var MyDate = function (_React$Component) {
+	  _inherits(MyDate, _React$Component);
+	
+	  function MyDate(props) {
+	    _classCallCheck(this, MyDate);
+	
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(MyDate).call(this, props));
+	  }
+	
+	  _createClass(MyDate, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'col-xs-12 col-md-5' },
+	        'I\'m a saved date.'
+	      );
+	    }
+	  }]);
+	
+	  return MyDate;
+	}(_react2.default.Component);
+	
+	exports.default = MyDate;
+
+/***/ },
+/* 181 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	// Dimension prop type
+	var dimensionPropType = _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.number, _react2.default.PropTypes.string]);
+	
+	// Size presets, defined by Spotify
+	
+	/**
+	 * Spotify player iframe widget
+	 *
+	 * @author Alexander Wallin <office@alexanderwallin.com>
+	 * @see https://developer.spotify.com/technologies/widgets/spotify-play-button/
+	 */
+	
+	var sizePresets = {
+	  large: {
+	    width: 300,
+	    height: 380
+	  },
+	  compact: {
+	    width: 300,
+	    height: 80
+	  }
+	};
+	
+	/**
+	 * SpotifyPlayer class
+	 */
+	var SpotifyPlayer = _react2.default.createClass({
+	  displayName: 'SpotifyPlayer',
+	
+	  // ------------------------------------------------------
+	  // Component specs & lifecycle
+	  // ------------------------------------------------------
+	
+	  propTypes: {
+	
+	    // Spotify URI
+	    uri: _react2.default.PropTypes.string.isRequired,
+	
+	    // Size as either a preset or as custom dimensions
+	    size: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.oneOf(['large', 'compact']), _react2.default.PropTypes.shape({
+	      width: dimensionPropType,
+	      height: dimensionPropType
+	    })]),
+	
+	    // View
+	    view: _react2.default.PropTypes.oneOf(['list', 'coverart']),
+	
+	    // Theme
+	    theme: _react2.default.PropTypes.oneOf(['black', 'white'])
+	  },
+	
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      size: 'large',
+	      view: 'list',
+	      theme: 'black'
+	    };
+	  },
+	
+	  // ------------------------------------------------------
+	  // Render
+	  // ------------------------------------------------------
+	
+	  render: function render() {
+	    var _props = this.props;
+	    var uri = _props.uri;
+	    var view = _props.view;
+	    var theme = _props.theme;
+	    var size = this.props.size;
+	
+	    if (typeof size === 'string') {
+	      size = sizePresets[size];
+	    }
+	
+	    return _react2.default.createElement('iframe', {
+	      className: 'SpotifyPlayer',
+	      src: 'https://embed.spotify.com/?uri=' + uri + '&view=' + view + '&theme=' + theme,
+	      width: size.width,
+	      height: size.height,
+	      frameBorder: '0',
+	      allowTransparency: 'true'
+	    });
+	  }
+	});
+	
+	exports.default = SpotifyPlayer;
 
 /***/ }
 /******/ ]);

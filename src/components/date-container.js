@@ -4,6 +4,7 @@ import Search from './search';
 import WeatherList from './weather-list';
 import AllEvents from './all-events';
 import Spotify from './spotify';
+import MyDate from './my-date';
 
 
 class DateContainer extends React.Component {
@@ -13,6 +14,8 @@ class DateContainer extends React.Component {
       weatherlist: [],
       events: [],
       music: {},
+      link: {},
+      image: {}
     };
   }
 
@@ -28,24 +31,6 @@ _handleYelp(theme, city) {
         let these = results.businesses
         this.setState({
           events: these
-        })      })
-      // .catch((ex) => {
-      //   console.log('parsing failed', ex)
-      // })
-  }
-
-  _fetchMusic(searchTerm) {
-
-    fetch(`//api.spotify.com/v1/search?query=%22${searchTerm}%22&offset=0&limit=20&type=playlist`)
-      .then((response) => {
-        return response.json()
-      })
-      .then((results) => {
-        let playlist = results.playlists.items[0]
-        let open = playlist.external_urls
-        console.log(playlist.external_urls)
-        this.setState({
-          music: playlist
         })
       })
       // .catch((ex) => {
@@ -53,6 +38,26 @@ _handleYelp(theme, city) {
       // })
   }
 
+  _fetchMusic(searchTerm) {
+    fetch(`//api.spotify.com/v1/search?query=%22${searchTerm}%22&offset=0&limit=20&type=playlist`)
+      .then((response) => {
+        return response.json()
+      })
+      .then((results) => {
+        let playlist = results.playlists.items[0]
+        let open = playlist.external_urls
+        let view = playlist.images[0]
+        console.log(playlist.external_urls)
+        this.setState({
+          music: playlist,
+          link: open,
+          image: view
+        })
+      })
+      // .catch((ex) => {
+      //   console.log('parsing failed', ex)
+      // })
+  }
 
 
   _fetchWeather(searchTerm) {
@@ -78,9 +83,10 @@ _handleYelp(theme, city) {
     return (
     <div>
       <Search searchYelp={this._handleYelp.bind(this)} music={this._fetchMusic.bind(this)} search={this._fetchWeather.bind(this)}/>
-      <Spotify musicinfo={this.state.music} />
+      <Spotify musicinfo={this.state.music} link={this.state.link} image={this.state.image} />
       <AllEvents yelplist={this.state.events}/>
       <WeatherList weatherlist={this.state.weatherlist}/>
+      <MyDate />
     </div>
     )
   }

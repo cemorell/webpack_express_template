@@ -18,7 +18,7 @@ router.get('/yelp/', function(req, res, next) {
   });
 
   // See http://www.yelp.com/developers/documentation/v2/search_api
-  yelp.search({ term: req.query.theme, location: req.query.city, limit: 3 })
+  yelp.search({ term: req.query.theme, location: req.query.city, limit: 5 })
   .then(function (data) {
     res.json(data);
   })
