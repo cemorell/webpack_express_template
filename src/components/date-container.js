@@ -4,6 +4,7 @@ import Search from './search';
 import WeatherList from './weather-list';
 import AllEvents from './all-events';
 import Spotify from './spotify';
+import MyDate from './my-date';
 
 
 class DateContainer extends React.Component {
@@ -80,6 +81,7 @@ _handleYelp(theme, city) {
       <Spotify musicinfo={this.state.music}/>
       <AllEvents yelplist={this.state.events}/>
       <WeatherList weatherlist={this.state.weatherlist}/>
+      <MyDate />
     </div>
     )
   }
