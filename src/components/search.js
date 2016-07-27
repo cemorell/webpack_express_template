@@ -11,18 +11,19 @@ class Search extends React.Component {
 
   _handleSearch(event){
     event.preventDefault();
-    this.props.searchfunctiontobenamed(this.refs.DaySearch.value);
-    this.props.search(this.refs.ThemeSearch.value);
-    this.props.search(this.refs.TimeoDay.value);
+    this.props.search(this.refs.city.value);
+    this.props.searchYelp(this.refs.themeSearch.value, this.refs.city.value);
+    this.props.music(this.refs.playlist.value);
+
   }
 
   render(){
     return (
     <div>
       <form onSubmit={ this._handleSearch.bind(this) }>
-        <input type="search" placeholder="01/01/2016" ref="DaySearch"  />
-        <input type="search" placeholder="What theme?" ref="ThemeSearch"  />
-        <input type="search" placeholder="What timeISH?" ref="TimeoDay"  />
+        <input type="search" placeholder="What theme?" ref="themeSearch"  />
+        <input type="search" placeholder="What City?" ref="city"  />
+        <input type="search" placeholder="What playlist?" ref="playlist"  />
         <input type="submit" value="Search on!" />
       </form>
     </div>

@@ -7,7 +7,8 @@ class Spotify extends React.Component {
 
   render(){
     return (
-    <div>
+    <div className="col-xs-12 col-md-10">
+        <h1>{this.props.musicinfo.id}</h1>
     </div>
     )
   }

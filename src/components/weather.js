@@ -7,7 +7,10 @@ class Weather extends React.Component {
 
   render(){
     return (
-    <div>
+    <div className="oneweather">
+        <img src={this.props.image} />
+        <h4>{this.props.day}</h4>
+        <p> {this.props.text}</p>
     </div>
     )
   }
