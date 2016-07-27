@@ -9,7 +9,9 @@ class MyDate extends React.Component {
   render(){
     return (
       <div className="col-xs-12 col-md-5">
-
+        <img src={this.props.datebuild.image}/>
+        <p>{this.props.datebuild.info}</p>
+        <p>{this.props.datebuild.title}</p>
       </div>
       );
   }

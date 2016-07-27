@@ -92,7 +92,7 @@ _handleYelp(theme, city) {
       <Spotify musicinfo={this.state.music}  own={this.state.owner} link={this.state.link} image={this.state.image} />
       <AllEvents yelplist={this.state.events}/>
       <WeatherList weatherlist={this.state.weatherlist}/>
-      <MyDate />
+      <MyDate  />
     </div>
     )
   }
