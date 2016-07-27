@@ -11,16 +11,17 @@ class Search extends React.Component {
 
   _handleSearch(event){
     event.preventDefault();
-    this.props.search(this.refs.City.value);
+    this.props.search(this.refs.city.value);
+    this.props.searchYelp(this.refs.themeSearch.value, this.refs.city.value);
+
   }
 
   render(){
     return (
     <div>
-      <form onSubmit={this._handleSearch.bind(this)}>
-        <input type="search" placeholder="01/01/2016" ref="DaySearch"  />
-        <input type="search" placeholder="What theme?" ref="ThemeSearch"  />
-        <input type="search" placeholder="What City?" ref="City"  />
+      <form onSubmit={ this._handleSearch.bind(this) }>
+        <input type="search" placeholder="What theme?" ref="themeSearch"  />
+        <input type="search" placeholder="What City?" ref="city"  />
         <input type="submit" value="Search on!" />
       </form>
     </div>
