@@ -6,17 +6,17 @@ class SingleEvent extends React.Component {
  constructor(props){
     super(props);
   }
-  _saveDate(){
-    var newSavedDate = {
-      image: this.props.image,
-      title: this.props.title,
-      info: this.props.info
-    }
-    this.firebaseRef.push(newSavedDate);
-  }
-  componentWillMount(){
-    this.firebaseRef = new Firebase('https://build-a-date.firebaseio.com/build-a-date');
-  }
+  // _saveDate(){
+  //   var newSavedDate = {
+  //     image: this.props.image,
+  //     title: this.props.title,
+  //     info: this.props.info
+  //   }
+  //   this.firebaseRef.push(newSavedDate);
+  // }
+  // componentWillMount(){
+  //   this.firebaseRef = new Firebase('https://build-a-date.firebaseio.com/build-a-date');
+  // }
 
   render(){
     return (
