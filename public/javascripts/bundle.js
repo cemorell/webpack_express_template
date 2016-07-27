@@ -21927,6 +21927,10 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _myDate = __webpack_require__(180);
+	
+	var _myDate2 = _interopRequireDefault(_myDate);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -21943,7 +21947,12 @@
 	  function SingleEvent(props) {
 	    _classCallCheck(this, SingleEvent);
 	
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(SingleEvent).call(this, props));
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(SingleEvent).call(this, props));
+	
+	    _this.state = {
+	      savedDates: []
+	    };
+	    return _this;
 	  }
 	
 	  _createClass(SingleEvent, [{
@@ -22100,7 +22109,21 @@
 	  _createClass(MyDate, [{
 	    key: 'render',
 	    value: function render() {
-	      return _react2.default.createElement('div', { className: 'col-xs-12 col-md-5' });
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'col-xs-12 col-md-5' },
+	        _react2.default.createElement('img', { src: this.props.datebuild.image }),
+	        _react2.default.createElement(
+	          'p',
+	          null,
+	          this.props.datebuild.info
+	        ),
+	        _react2.default.createElement(
+	          'p',
+	          null,
+	          this.props.datebuild.title
+	        )
+	      );
 	    }
 	  }]);
 	
