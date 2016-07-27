@@ -3,6 +3,7 @@ import 'whatwg-fetch';
 import Search from './search';
 import WeatherList from './weather-list';
 import AllEvents from './all-events';
+import Spotify from './spotify';
 
 
 class DateContainer extends React.Component {
@@ -10,8 +11,8 @@ class DateContainer extends React.Component {
     super(props);
     this.state = {
       weatherlist: [],
-      events: []
-
+      events: [],
+      music: {}
     };
   }
 
@@ -25,7 +26,6 @@ _handleYelp(theme, city) {
       })
       .then((results) => {
         let these = results.businesses
-        console.log(these)
         this.setState({
           events: these
         })      })
@@ -33,6 +33,25 @@ _handleYelp(theme, city) {
       //   console.log('parsing failed', ex)
       // })
   }
+
+  _fetchMusic(searchTerm) {
+
+    fetch(`//api.spotify.com/v1/search?query=%22${searchTerm}%22&offset=0&limit=20&type=playlist`)
+      .then((response) => {
+        return response.json()
+      })
+      .then((results) => {
+        let playlist = results.playlists.items[0]
+        console.log(playlist)
+        this.setState({
+          music: playlist
+        })
+      })
+      .catch((ex) => {
+        console.log('parsing failed', ex)
+      })
+  }
+
 
 
   _fetchWeather(searchTerm) {
@@ -57,7 +76,8 @@ _handleYelp(theme, city) {
   render(){
     return (
     <div>
-      <Search searchYelp={this._handleYelp.bind(this)} search={this._fetchWeather.bind(this)}/>
+      <Search searchYelp={this._handleYelp.bind(this)} music={this._fetchMusic.bind(this)} search={this._fetchWeather.bind(this)}/>
+      <Spotify musicinfo={this.state.music}/>
       <AllEvents yelplist={this.state.events}/>
       <WeatherList weatherlist={this.state.weatherlist}/>
     </div>
