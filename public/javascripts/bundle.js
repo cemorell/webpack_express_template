@@ -21979,7 +21979,7 @@
 	            title: data.val().title
 	          };
 	          savedDates.push(savedDate);
-	          this.setState({ savedDates: savedDates });
+	          //this.setState({savedDates: savedDates});
 	        });
 	      });
 	    }
@@ -22109,21 +22109,7 @@
 	  _createClass(MyDate, [{
 	    key: 'render',
 	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        { className: 'col-xs-12 col-md-5' },
-	        _react2.default.createElement('img', { src: this.props.datebuild.image }),
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          this.props.datebuild.info
-	        ),
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          this.props.datebuild.title
-	        )
-	      );
+	      return _react2.default.createElement('div', { className: 'col-xs-12 col-md-5' });
 	    }
 	  }]);
 	

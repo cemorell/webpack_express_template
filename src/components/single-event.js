@@ -30,7 +30,7 @@ class SingleEvent extends React.Component {
           title: data.val().title
         }
         savedDates.push(savedDate);
-        this.setState({savedDates: savedDates});
+        //this.setState({savedDates: savedDates});
       });
     });
   }
