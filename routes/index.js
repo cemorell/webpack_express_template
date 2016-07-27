@@ -9,6 +9,8 @@ router.get('/', function(req, res, next) {
 });
 
 
+
+
 router.get('/yelp/', function(req, res, next) {
   // Request API access: http://www.yelp.com/developers/getting_started/api_access
   console.log('hello', req.query)

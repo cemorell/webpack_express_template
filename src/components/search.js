@@ -11,7 +11,10 @@ class Search extends React.Component {
 
   _handleSearch(event){
     event.preventDefault();
+
+    this.props.search(this.refs.city.value);
     this.props.searchYelp(this.refs.themeSearch.value, this.refs.city.value);
+
   }
 
 
