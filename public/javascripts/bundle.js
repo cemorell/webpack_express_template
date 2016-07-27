@@ -21157,40 +21157,16 @@
 	  }
 	
 	  _createClass(DateContainer, [{
-	    key: '_fetchWeather',
-	    value: function _fetchWeather(searchTerm) {
-	      var _this2 = this;
-	
-	      fetch('//api.wunderground.com/api/64bf88b7ae5575b4/forecast10day/q/TX/' + searchTerm + '.json').then(function (response) {
-	        return response.json();
-	      }).then(function (results) {
-<<<<<<< HEAD
-	        var week = results.forecast.txt_forecast.forecastday;
-=======
-	        var these = results.businesses;
->>>>>>> f12fe9b58bd51d245361e1227008cd95391f6877
-	        _this2.setState({
-	          weatherlist: week
-	        });
-	      }).catch(function (ex) {
-	        console.log('parsing failed', ex);
-	      });
-	    }
-	  }, {
-<<<<<<< HEAD
-	    key: '_handleYelp',
-	    value: function _handleYelp(theme, city) {
-=======
 	    key: '_fetchMusic',
 	    value: function _fetchMusic(searchTerm) {
-	      var _this3 = this;
+	      var _this2 = this;
 	
 	      fetch('//api.spotify.com/v1/search?query=%22' + searchTerm + '%22&offset=0&limit=20&type=playlist').then(function (response) {
 	        return response.json();
 	      }).then(function (results) {
 	        var playlist = results.playlists.items[0];
 	        console.log(playlist);
-	        _this3.setState({
+	        _this2.setState({
 	          music: playlist
 	        });
 	      }).catch(function (ex) {
@@ -21200,22 +21176,29 @@
 	  }, {
 	    key: '_fetchWeather',
 	    value: function _fetchWeather(searchTerm) {
-	      var _this4 = this;
->>>>>>> f12fe9b58bd51d245361e1227008cd95391f6877
+	      var _this3 = this;
+	
+	      fetch('//api.wunderground.com/api/64bf88b7ae5575b4/forecast10day/q/TX/' + searchTerm + '.json').then(function (response) {
+	        return response.json();
+	      }).then(function (results) {
+	        var week = results.forecast.txt_forecast.forecastday;
+	        _this3.setState({
+	          weatherlist: week
+	        });
+	      }).catch(function (ex) {
+	        console.log('parsing failed', ex);
+	      });
+	    }
+	  }, {
+	    key: '_handleYelp',
+	    value: function _handleYelp(theme, city) {
 	
 	      fetch('/yelp?theme=' + theme + '&city=' + city, {
 	        method: 'GET'
 	      }).then(function (response) {
 	        return response.json();
 	      }).then(function (results) {
-<<<<<<< HEAD
 	        console.log(results);
-=======
-	        var week = results.forecast.txt_forecast.forecastday;
-	        _this4.setState({
-	          weatherlist: week
-	        });
->>>>>>> f12fe9b58bd51d245361e1227008cd95391f6877
 	      }).catch(function (ex) {
 	        console.log('parsing failed', ex);
 	      });
@@ -21940,8 +21923,6 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-<<<<<<< HEAD
-=======
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -22027,7 +22008,6 @@
 	
 	var _weather2 = _interopRequireDefault(_weather);
 	
->>>>>>> f12fe9b58bd51d245361e1227008cd95391f6877
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -22036,41 +22016,32 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var SingleEvent = function (_React$Component) {
-	  _inherits(SingleEvent, _React$Component);
+	var WeatherList = function (_React$Component) {
+	  _inherits(WeatherList, _React$Component);
 	
-	  function SingleEvent(props) {
-	    _classCallCheck(this, SingleEvent);
+	  function WeatherList(props) {
+	    _classCallCheck(this, WeatherList);
 	
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(SingleEvent).call(this, props));
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(WeatherList).call(this, props));
 	  }
 	
-	  _createClass(SingleEvent, [{
+	  _createClass(WeatherList, [{
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-<<<<<<< HEAD
-	        null,
-	        _react2.default.createElement(
-	          'h4',
-	          null,
-	          this.props.title
-	        )
-=======
 	        { className: 'col-xs-12 col-md-5' },
 	        this.props.weatherlist.map(function (weather, index) {
 	          return _react2.default.createElement(_weather2.default, { day: weather.title, text: weather.fcttext, image: weather.icon_url, key: index });
 	        })
->>>>>>> f12fe9b58bd51d245361e1227008cd95391f6877
 	      );
 	    }
 	  }]);
 	
-	  return SingleEvent;
+	  return WeatherList;
 	}(_react2.default.Component);
 	
-	exports.default = SingleEvent;
+	exports.default = WeatherList;
 
 /***/ },
 /* 180 */
@@ -22088,15 +22059,9 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-<<<<<<< HEAD
-	var _weather = __webpack_require__(176);
-	
-	var _weather2 = _interopRequireDefault(_weather);
-=======
 	var _singleEvent = __webpack_require__(178);
 	
 	var _singleEvent2 = _interopRequireDefault(_singleEvent);
->>>>>>> f12fe9b58bd51d245361e1227008cd95391f6877
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -22106,18 +22071,6 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-<<<<<<< HEAD
-	var WeatherList = function (_React$Component) {
-	  _inherits(WeatherList, _React$Component);
-	
-	  function WeatherList(props) {
-	    _classCallCheck(this, WeatherList);
-	
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(WeatherList).call(this, props));
-	  }
-	
-	  _createClass(WeatherList, [{
-=======
 	var MyDate = function (_React$Component) {
 	  _inherits(MyDate, _React$Component);
 	
@@ -22128,35 +22081,20 @@
 	  }
 	
 	  _createClass(MyDate, [{
->>>>>>> f12fe9b58bd51d245361e1227008cd95391f6877
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-<<<<<<< HEAD
-	        null,
-	        this.props.weatherlist.map(function (weather, index) {
-	          return _react2.default.createElement(_weather2.default, { day: weather.title, text: weather.fcttext, image: weather.icon_url, key: index });
-	        })
-=======
 	        { className: 'col-xs-12 col-md-5' },
 	        'I\'m a saved date.'
->>>>>>> f12fe9b58bd51d245361e1227008cd95391f6877
 	      );
 	    }
 	  }]);
 	
-<<<<<<< HEAD
-	  return WeatherList;
-	}(_react2.default.Component);
-	
-	exports.default = WeatherList;
-=======
 	  return MyDate;
 	}(_react2.default.Component);
 	
 	exports.default = MyDate;
->>>>>>> f12fe9b58bd51d245361e1227008cd95391f6877
 
 /***/ }
 /******/ ]);
