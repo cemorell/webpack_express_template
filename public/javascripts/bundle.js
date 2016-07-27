@@ -21960,6 +21960,19 @@
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
 	      this.firebaseRef = new Firebase('https://build-a-date.firebaseio.com/build-a-date');
+	
+	      this.firebaseRef.once("value", function (snapshot) {
+	        var savedDates = [];
+	        snapshot.forEach(function (data) {
+	          var savedDate = {
+	            image: data.val().image,
+	            info: data.val().info,
+	            title: data.val().title
+	          };
+	          savedDates.push(savedDate);
+	          this.setState({ savedDates: savedDates });
+	        });
+	      });
 	    }
 	  }, {
 	    key: 'render',
@@ -22087,11 +22100,7 @@
 	  _createClass(MyDate, [{
 	    key: 'render',
 	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        { className: 'col-xs-12 col-md-5' },
-	        'I\'m a saved date.'
-	      );
+	      return _react2.default.createElement('div', { className: 'col-xs-12 col-md-5' });
 	    }
 	  }]);
 	
