@@ -21153,7 +21153,8 @@
 	      events: [],
 	      music: {},
 	      link: {},
-	      image: {}
+	      image: {},
+	      owner: {}
 	    };
 	    return _this;
 	  }
@@ -21188,11 +21189,16 @@
 	        var playlist = results.playlists.items[0];
 	        var open = playlist.external_urls;
 	        var view = playlist.images[0];
-	        console.log(playlist.external_urls);
+	        var own = playlist.uri;
+	        var id = playlist.id;
+	        var all = own + id;
+	        console.log(own);
+	        console.log(all);
 	        _this3.setState({
 	          music: playlist,
 	          link: open,
-	          image: view
+	          image: view,
+	          owner: own
 	        });
 	      });
 	      // .catch((ex) => {
@@ -21222,7 +21228,7 @@
 	        'div',
 	        null,
 	        _react2.default.createElement(_search2.default, { searchYelp: this._handleYelp.bind(this), music: this._fetchMusic.bind(this), search: this._fetchWeather.bind(this) }),
-	        _react2.default.createElement(_spotify2.default, { musicinfo: this.state.music, link: this.state.link, image: this.state.image }),
+	        _react2.default.createElement(_spotify2.default, { musicinfo: this.state.music, own: this.state.owner, link: this.state.link, image: this.state.image }),
 	        _react2.default.createElement(_allEvents2.default, { yelplist: this.state.events }),
 	        _react2.default.createElement(_weatherList2.default, { weatherlist: this.state.weatherlist }),
 	        _react2.default.createElement(_myDate2.default, null)
@@ -21794,16 +21800,10 @@
 	        'div',
 	        { className: 'col-xs-12 col-md-5' },
 	        _react2.default.createElement(_reactSpotifyPlayer2.default, {
-	          uri: 'spotify:album:1TIUsv8qmYLpBEhvmBmyBk',
+	          uri: this.props.own,
 	          size: 'large',
 	          view: 'list',
-	          theme: 'list' }),
-	        _react2.default.createElement('img', { src: this.props.image.url }),
-	        _react2.default.createElement(
-	          'a',
-	          { href: this.props.link.spotify, target: '_blank' },
-	          this.props.musicinfo.name
-	        )
+	          theme: 'black' })
 	      );
 	    }
 	  }]);

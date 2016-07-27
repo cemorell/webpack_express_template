@@ -15,7 +15,8 @@ class DateContainer extends React.Component {
       events: [],
       music: {},
       link: {},
-      image: {}
+      image: {},
+      owner: {}
     };
   }
 
@@ -47,11 +48,16 @@ _handleYelp(theme, city) {
         let playlist = results.playlists.items[0]
         let open = playlist.external_urls
         let view = playlist.images[0]
-        console.log(playlist.external_urls)
+        let own = playlist.uri
+        let id = playlist.id
+        let all = own + id
+        console.log(own)
+        console.log(all)
         this.setState({
           music: playlist,
           link: open,
-          image: view
+          image: view,
+          owner: own
         })
       })
       // .catch((ex) => {
@@ -83,7 +89,7 @@ _handleYelp(theme, city) {
     return (
     <div>
       <Search searchYelp={this._handleYelp.bind(this)} music={this._fetchMusic.bind(this)} search={this._fetchWeather.bind(this)}/>
-      <Spotify musicinfo={this.state.music} link={this.state.link} image={this.state.image} />
+      <Spotify musicinfo={this.state.music}  own={this.state.owner} link={this.state.link} image={this.state.image} />
       <AllEvents yelplist={this.state.events}/>
       <WeatherList weatherlist={this.state.weatherlist}/>
       <MyDate />
