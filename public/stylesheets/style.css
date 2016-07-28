@@ -21,8 +21,19 @@ body {
 }
 #searchContainer{
   text-align: center;
-  margin: 3%;
+  margin: 0 auto;
+  text-align: center;
 }
+#searchForm input{
+  margin: 1%;
+  display: block;
+}
+#spotify-player{
+  float: right;
+  margin: 0;
+}
+
+
 a {
   color: #00B7FF;
 }

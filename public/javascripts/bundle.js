@@ -21136,10 +21136,6 @@
 	
 	var _myDate2 = _interopRequireDefault(_myDate);
 	
-	var _underscore = __webpack_require__(183);
-	
-	var _underscore2 = _interopRequireDefault(_underscore);
-	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -21159,7 +21155,7 @@
 	    _this.state = {
 	      weatherlist: [],
 	      events: [],
-	      selectedEvents: [],
+	      selectedEvents: {},
 	      music: {},
 	      link: {},
 	      image: {},
@@ -21173,11 +21169,10 @@
 	    value: function componentWillMount() {
 	      var _this2 = this;
 	
-	      var ref = new Firebase('https://build-a-date.firebaseio.com/build-a-date');
+	      this.firebaseRef = new Firebase('https://build-a-date.firebaseio.com/build-a-date');
 	
-	      ref.on("value", function (snapshot) {
-	        var selectedEvents = _underscore2.default.values(snapshot.val());
-	        _this2.setState({ selectedEvents: selectedEvents });
+	      this.firebaseRef.on("value", function (snapshot) {
+	        _this2.setState({ selectedEvents: snapshot.val() });
 	        console.log(_this2.state.selectedEvents);
 	      }, function (errorObject) {
 	        console.log("The read failed: " + errorObject.code);
@@ -21258,7 +21253,7 @@
 	        null,
 	        _react2.default.createElement(_search2.default, { searchYelp: this._handleYelp.bind(this), music: this._fetchMusic.bind(this), search: this._fetchWeather.bind(this) }),
 	        _react2.default.createElement(_spotify2.default, { musicinfo: this.state.music, own: this.state.owner, link: this.state.link, image: this.state.image }),
-	        _react2.default.createElement(_allEvents2.default, { yelplist: this.state.events }),
+	        _react2.default.createElement(_allEvents2.default, { firebaseRef: this.firebaseRef, yelplist: this.state.events }),
 	        _react2.default.createElement(_weatherList2.default, { weatherlist: this.state.weatherlist }),
 	        _react2.default.createElement(_selectedEvents2.default, { events: this.state.selectedEvents })
 	      );
@@ -21758,6 +21753,7 @@
 	    key: '_handleSearch',
 	    value: function _handleSearch(event) {
 	      event.preventDefault();
+	
 	      this.props.search(this.refs.city.value);
 	      this.props.searchYelp(this.refs.themeSearch.value, this.refs.city.value);
 	      this.props.music(this.refs.playlist.value);
@@ -21770,7 +21766,7 @@
 	        { id: 'searchContainer' },
 	        _react2.default.createElement(
 	          'form',
-	          { onSubmit: this._handleSearch.bind(this) },
+	          { onSubmit: this._handleSearch.bind(this), id: 'searchForm' },
 	          _react2.default.createElement('input', { type: 'search', placeholder: 'What theme?', ref: 'themeSearch' }),
 	          _react2.default.createElement('input', { type: 'search', placeholder: 'What City?', ref: 'city' }),
 	          _react2.default.createElement('input', { type: 'search', placeholder: 'What playlist?', ref: 'playlist' }),
@@ -21827,7 +21823,7 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-	        { className: 'col-xs-12 col-md-5' },
+	        { id: 'spotify-player', className: 'col-xs-12 col-md-5' },
 	        _react2.default.createElement(_reactSpotifyPlayer2.default, {
 	          uri: this.props.own,
 	          size: 'large',
@@ -22045,11 +22041,13 @@
 	  _createClass(AllEvents, [{
 	    key: 'render',
 	    value: function render() {
+	      var _this2 = this;
+	
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'col-xs-12 col-md-5' },
 	        this.props.yelplist.map(function (event, index) {
-	          return _react2.default.createElement(_singleEvent2.default, { title: event.name, info: event.snippet_text, image: event.image_url, key: index });
+	          return _react2.default.createElement(_singleEvent2.default, { firebaseRef: _this2.props.firebaseRef, title: event.name, info: event.snippet_text, image: event.image_url, key: index });
 	        })
 	      );
 	    }
@@ -22096,12 +22094,7 @@
 	  function SingleEvent(props) {
 	    _classCallCheck(this, SingleEvent);
 	
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(SingleEvent).call(this, props));
-	
-	    _this.state = {
-	      savedDates: []
-	    };
-	    return _this;
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(SingleEvent).call(this, props));
 	  }
 	
 	  _createClass(SingleEvent, [{
@@ -22112,25 +22105,7 @@
 	        title: this.props.title,
 	        info: this.props.info
 	      };
-	      this.firebaseRef.push(newSavedDate);
-	    }
-	  }, {
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
-	      this.firebaseRef = new Firebase('https://build-a-date.firebaseio.com/build-a-date');
-	
-	      this.firebaseRef.once("value", function (snapshot) {
-	        var savedDates = [];
-	        snapshot.forEach(function (data) {
-	          var savedDate = {
-	            image: data.val().image,
-	            info: data.val().info,
-	            title: data.val().title
-	          };
-	          savedDates.push(savedDate);
-	          //this.setState({savedDates: savedDates});
-	        });
-	      });
+	      this.props.firebaseRef.push(newSavedDate);
 	    }
 	  }, {
 	    key: 'render',
@@ -22197,14 +22172,19 @@
 	  function MyDate(props) {
 	    _classCallCheck(this, MyDate);
 	
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(MyDate).call(this, props));
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(MyDate).call(this, props));
+	
+	    _this.state = { display: true };
+	    return _this;
 	  }
 	
 	  _createClass(MyDate, [{
 	    key: '_handleDelete',
-	    value: function _handleDelete(itemId) {
-	      var itemRef = new Firebase('https://build-a-date.firebaseio.com/build-a-date');
-	      itemRef.child(itemId).remove();
+	    value: function _handleDelete(e) {
+	      e.preventDefault();
+	      console.log(this.props.id);
+	      var itemRef = new Firebase('https://build-a-date.firebaseio.com/build-a-date/' + this.props.id);
+	      itemRef.remove();
 	    }
 	  }, {
 	    key: 'render',
@@ -22312,6 +22292,10 @@
 	
 	var _myDate2 = _interopRequireDefault(_myDate);
 	
+	var _underscore = __webpack_require__(183);
+	
+	var _underscore2 = _interopRequireDefault(_underscore);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -22335,8 +22319,8 @@
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'col-xs-12 col-md-5' },
-	        this.props.events.map(function (event, index) {
-	          return _react2.default.createElement(_myDate2.default, { title: event.title, info: event.info, image: event.image, key: index });
+	        _underscore2.default.map(this.props.events, function (event, id) {
+	          return _react2.default.createElement(_myDate2.default, { title: event.title, info: event.info, image: event.image, key: id, id: id });
 	        })
 	      );
 	    }
