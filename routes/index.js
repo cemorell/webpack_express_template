@@ -2,10 +2,14 @@ var express = require('express');
 var router = express.Router();
 var Yelp = require('yelp');
 
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
+
+
+
 
 router.get('/yelp/', function(req, res, next) {
   // Request API access: http://www.yelp.com/developers/getting_started/api_access

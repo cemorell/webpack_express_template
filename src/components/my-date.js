@@ -5,12 +5,19 @@ import SingleEvent from './single-event';
 class MyDate extends React.Component {
   constructor(props){
     super(props);
+    this.state = { display: true}
   }
 
-  _handleDelete(itemId){
-    var itemRef = new Firebase('https://build-a-date.firebaseio.com/build-a-date');
-    itemRef.child(itemId).remove();
+  _handleDelete(e){
+    e.preventDefault();
+    console.log(this.props.id)
+    var itemRef = new Firebase(`https://build-a-date.firebaseio.com/build-a-date/${this.props.id}`);
+    itemRef.remove();
+
+
+
   }
+
   render(){
     return (
       <div className="col-xs-12 col-md-5">
