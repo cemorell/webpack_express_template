@@ -4,7 +4,10 @@ import Search from './search';
 import WeatherList from './weather-list';
 import AllEvents from './all-events';
 import Spotify from './spotify';
+import SelectedEvents from './selected-events';
 import MyDate from './my-date';
+import _ from 'underscore';
+
 
 
 class DateContainer extends React.Component {
@@ -13,8 +16,23 @@ class DateContainer extends React.Component {
     this.state = {
       weatherlist: [],
       events: [],
-      music: {}
+      selectedEvents: [],
+      music: {},
+      link: {},
+      image: {},
+      owner: {}
     };
+  }
+  componentWillMount(){
+    var ref = new Firebase('https://build-a-date.firebaseio.com/build-a-date');
+
+    ref.on("value", (snapshot)=> {
+      let selectedEvents = _.values(snapshot.val());
+      this.setState({selectedEvents: selectedEvents});
+      console.log(this.state.selectedEvents);
+    }, function (errorObject) {
+      console.log("The read failed: " + errorObject.code);
+    });
   }
 
 _handleYelp(theme, city) {
@@ -29,30 +47,38 @@ _handleYelp(theme, city) {
         let these = results.businesses
         this.setState({
           events: these
-        })      })
+        })
+      })
       // .catch((ex) => {
       //   console.log('parsing failed', ex)
       // })
   }
 
   _fetchMusic(searchTerm) {
-
     fetch(`//api.spotify.com/v1/search?query=%22${searchTerm}%22&offset=0&limit=20&type=playlist`)
       .then((response) => {
         return response.json()
       })
       .then((results) => {
         let playlist = results.playlists.items[0]
-        console.log(playlist)
+        let open = playlist.external_urls
+        let view = playlist.images[0]
+        let own = playlist.uri
+        let id = playlist.id
+        let all = own + id
+        console.log(own)
+        console.log(all)
         this.setState({
-          music: playlist
+          music: playlist,
+          link: open,
+          image: view,
+          owner: own
         })
       })
-      .catch((ex) => {
-        console.log('parsing failed', ex)
-      })
+      // .catch((ex) => {
+      //   console.log('parsing failed', ex)
+      // })
   }
-
 
 
   _fetchWeather(searchTerm) {
@@ -78,10 +104,10 @@ _handleYelp(theme, city) {
     return (
     <div>
       <Search searchYelp={this._handleYelp.bind(this)} music={this._fetchMusic.bind(this)} search={this._fetchWeather.bind(this)}/>
-      <Spotify musicinfo={this.state.music}/>
+      <Spotify musicinfo={this.state.music}  own={this.state.owner} link={this.state.link} image={this.state.image} />
       <AllEvents yelplist={this.state.events}/>
       <WeatherList weatherlist={this.state.weatherlist}/>
-      <MyDate  />
+      <SelectedEvents  events={this.state.selectedEvents}/>
     </div>
     )
   }
