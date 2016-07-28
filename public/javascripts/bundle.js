@@ -21814,7 +21814,8 @@
 	exports.default = Spotify;
 
 /***/ },
-/* 176 */
+/* 176 */,
+/* 177 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22174,7 +22175,25 @@
 	  _createClass(MyDate, [{
 	    key: 'render',
 	    value: function render() {
+<<<<<<< bbf9560156ea67c97d51b61905517049539251e9
 	      return _react2.default.createElement('div', { className: 'col-xs-12 col-md-5' });
+=======
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'col-xs-12 col-md-5' },
+	        _react2.default.createElement('img', { src: this.props.datebuild.image }),
+	        _react2.default.createElement(
+	          'p',
+	          null,
+	          this.props.datebuild.info
+	        ),
+	        _react2.default.createElement(
+	          'p',
+	          null,
+	          this.props.datebuild.title
+	        )
+	      );
+>>>>>>> awaiting working date save
 	    }
 	  }]);
 	
@@ -22225,7 +22244,11 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
+<<<<<<< bbf9560156ea67c97d51b61905517049539251e9
 	        { className: 'col-xs-12 col-md-5 pic-container' },
+=======
+	        { className: 'col-xs-12 col-md-5' },
+>>>>>>> awaiting working date save
 	        this.props.weatherlist.map(function (weather, index) {
 	          return _react2.default.createElement(_weather2.default, { day: weather.title, text: weather.fcttext, image: weather.icon_url, key: index });
 	        })
