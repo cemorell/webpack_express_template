@@ -20,6 +20,8 @@ class DateContainer extends React.Component {
     };
   }
 
+
+
 _handleYelp(theme, city) {
 
     fetch(`/yelp?theme=${theme}&city=${city}`, {
