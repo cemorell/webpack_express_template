@@ -6,6 +6,7 @@ class MyDate extends React.Component {
   constructor(props){
     super(props);
   }
+
   _handleDelete(itemId){
     var itemRef = new Firebase('https://build-a-date.firebaseio.com/build-a-date');
     itemRef.child(itemId).remove();
@@ -17,6 +18,7 @@ class MyDate extends React.Component {
         <h4>{this.props.title}</h4>
         <p>{this.props.info}</p>
         <button onClick={this._handleDelete.bind(this)}>Remove from My Date</button>
+
       </div>
       );
   }
