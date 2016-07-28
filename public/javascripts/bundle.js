@@ -21252,10 +21252,10 @@
 	        'div',
 	        null,
 	        _react2.default.createElement(_search2.default, { searchYelp: this._handleYelp.bind(this), music: this._fetchMusic.bind(this), search: this._fetchWeather.bind(this) }),
-	        _react2.default.createElement(_spotify2.default, { musicinfo: this.state.music, own: this.state.owner, link: this.state.link, image: this.state.image }),
 	        _react2.default.createElement(_allEvents2.default, { firebaseRef: this.firebaseRef, yelplist: this.state.events }),
-	        _react2.default.createElement(_weatherList2.default, { weatherlist: this.state.weatherlist }),
-	        _react2.default.createElement(_selectedEvents2.default, { events: this.state.selectedEvents })
+	        _react2.default.createElement(_selectedEvents2.default, { events: this.state.selectedEvents }),
+	        _react2.default.createElement(_spotify2.default, { musicinfo: this.state.music, own: this.state.owner, link: this.state.link, image: this.state.image }),
+	        _react2.default.createElement(_weatherList2.default, { weatherlist: this.state.weatherlist })
 	      );
 	    }
 	  }]);
@@ -21763,10 +21763,10 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-	        null,
+	        { id: 'searchContainer' },
 	        _react2.default.createElement(
 	          'form',
-	          { onSubmit: this._handleSearch.bind(this) },
+	          { onSubmit: this._handleSearch.bind(this), id: 'searchForm' },
 	          _react2.default.createElement('input', { type: 'search', placeholder: 'What theme?', ref: 'themeSearch' }),
 	          _react2.default.createElement('input', { type: 'search', placeholder: 'What City?', ref: 'city' }),
 	          _react2.default.createElement('input', { type: 'search', placeholder: 'What playlist?', ref: 'playlist' }),
@@ -21823,7 +21823,7 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-	        { className: 'col-xs-12 col-md-5' },
+	        { id: 'spotify-player', className: 'col-xs-12 col-md-4' },
 	        _react2.default.createElement(_reactSpotifyPlayer2.default, {
 	          uri: this.props.own,
 	          size: 'large',
@@ -22045,10 +22045,18 @@
 	
 	      return _react2.default.createElement(
 	        'div',
-	        { className: 'col-xs-12 col-md-5' },
-	        this.props.yelplist.map(function (event, index) {
-	          return _react2.default.createElement(_singleEvent2.default, { firebaseRef: _this2.props.firebaseRef, title: event.name, info: event.snippet_text, image: event.image_url, key: index });
-	        })
+	        { className: 'col-xs-12 col-md-5', id: 'all-events' },
+	        _react2.default.createElement(
+	          'nav',
+	          { id: 'events' },
+	          _react2.default.createElement(
+	            'ul',
+	            null,
+	            this.props.yelplist.map(function (event, index) {
+	              return _react2.default.createElement(_singleEvent2.default, { firebaseRef: _this2.props.firebaseRef, title: event.name, info: event.snippet_text, image: event.image_url, key: index });
+	            })
+	          )
+	        )
 	      );
 	    }
 	  }]);
@@ -22184,7 +22192,7 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-	        { className: 'col-xs-12 col-md-5' },
+	        { className: 'col-xs-12 col-md-5 oneevent' },
 	        _react2.default.createElement('img', { src: this.props.image }),
 	        _react2.default.createElement(
 	          'h4',
@@ -22248,7 +22256,11 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
+<<<<<<< HEAD
 	        { className: 'col-xs-12 col-md-5 pic-container' },
+=======
+	        { className: 'col-xs-12 col-md-3 pic-container' },
+>>>>>>> 588742c5b88a416e0bfed191c815d069cd20f951
 	        _react2.default.createElement(
 	          'nav',
 	          null,
@@ -22315,10 +22327,18 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-	        { className: 'col-xs-12 col-md-5' },
-	        _underscore2.default.map(this.props.events, function (event, id) {
-	          return _react2.default.createElement(_myDate2.default, { title: event.title, info: event.info, image: event.image, key: id, id: id });
-	        })
+	        { className: 'col-xs-12 col-md-7', id: 'the-date' },
+	        _react2.default.createElement(
+	          'nav',
+	          null,
+	          _react2.default.createElement(
+	            'ul',
+	            null,
+	            _underscore2.default.map(this.props.events, function (event, id) {
+	              return _react2.default.createElement(_myDate2.default, { title: event.title, info: event.info, image: event.image, key: id, id: id });
+	            })
+	          )
+	        )
 	      );
 	    }
 	  }]);
