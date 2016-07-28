@@ -21203,6 +21203,11 @@
 	      // })
 	    }
 	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this._fetchMusic();
+	    }
+	  }, {
 	    key: '_fetchMusic',
 	    value: function _fetchMusic(searchTerm) {
 	      var _this4 = this;
@@ -21762,7 +21767,7 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-	        null,
+	        { id: 'searchContainer' },
 	        _react2.default.createElement(
 	          'form',
 	          { onSubmit: this._handleSearch.bind(this) },
@@ -22113,6 +22118,19 @@
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
 	      this.firebaseRef = new Firebase('https://build-a-date.firebaseio.com/build-a-date');
+	
+	      this.firebaseRef.once("value", function (snapshot) {
+	        var savedDates = [];
+	        snapshot.forEach(function (data) {
+	          var savedDate = {
+	            image: data.val().image,
+	            info: data.val().info,
+	            title: data.val().title
+	          };
+	          savedDates.push(savedDate);
+	          //this.setState({savedDates: savedDates});
+	        });
+	      });
 	    }
 	  }, {
 	    key: 'render',
@@ -22183,6 +22201,12 @@
 	  }
 	
 	  _createClass(MyDate, [{
+	    key: '_handleDelete',
+	    value: function _handleDelete(itemId) {
+	      var itemRef = new Firebase('https://build-a-date.firebaseio.com/build-a-date');
+	      itemRef.child(itemId).remove();
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
@@ -22198,6 +22222,11 @@
 	          'p',
 	          null,
 	          this.props.info
+	        ),
+	        _react2.default.createElement(
+	          'button',
+	          { onClick: this._handleDelete.bind(this) },
+	          'Remove from My Date'
 	        )
 	      );
 	    }
@@ -22250,7 +22279,7 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-	        { className: 'col-xs-12 col-md-5' },
+	        { className: 'col-xs-12 col-md-5 pic-container' },
 	        this.props.weatherlist.map(function (weather, index) {
 	          return _react2.default.createElement(_weather2.default, { day: weather.title, text: weather.fcttext, image: weather.icon_url, key: index });
 	        })

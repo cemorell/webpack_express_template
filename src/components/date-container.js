@@ -54,6 +54,15 @@ _handleYelp(theme, city) {
       // })
   }
 
+
+   componentDidMount(){
+  this._fetchMusic();
+}
+
+
+
+
+
   _fetchMusic(searchTerm) {
     fetch(`//api.spotify.com/v1/search?query=%22${searchTerm}%22&offset=0&limit=20&type=playlist`)
       .then((response) => {

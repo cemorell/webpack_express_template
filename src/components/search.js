@@ -19,7 +19,7 @@ class Search extends React.Component {
 
   render(){
     return (
-    <div>
+    <div id="searchContainer">
       <form onSubmit={ this._handleSearch.bind(this) }>
         <input type="search" placeholder="What theme?" ref="themeSearch"  />
         <input type="search" placeholder="What City?" ref="city"  />
