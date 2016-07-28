@@ -220,7 +220,7 @@
 	    if (draining) {
 	        return;
 	    }
-	    var timeout = cachedSetTimeout.call(null, cleanUpNextTick);
+	    var timeout = cachedSetTimeout(cleanUpNextTick);
 	    draining = true;
 	
 	    var len = queue.length;
@@ -237,7 +237,7 @@
 	    }
 	    currentQueue = null;
 	    draining = false;
-	    cachedClearTimeout.call(null, timeout);
+	    cachedClearTimeout(timeout);
 	}
 	
 	process.nextTick = function (fun) {
@@ -249,7 +249,7 @@
 	    }
 	    queue.push(new Item(fun, args));
 	    if (queue.length === 1 && !draining) {
-	        cachedSetTimeout.call(null, drainQueue, 0);
+	        cachedSetTimeout(drainQueue, 0);
 	    }
 	};
 	
@@ -22124,11 +22124,7 @@
 	          null,
 	          this.props.info
 	        ),
-	        _react2.default.createElement(
-	          'button',
-	          { onClick: this._saveDate.bind(this) },
-	          'Add to my date'
-	        )
+	        _react2.default.createElement('i', { onClick: this._saveDate.bind(this), className: 'fa fa-heart', 'aria-hidden': 'true' })
 	      );
 	    }
 	  }]);
@@ -22172,10 +22168,7 @@
 	  function MyDate(props) {
 	    _classCallCheck(this, MyDate);
 	
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(MyDate).call(this, props));
-	
-	    _this.state = { display: true };
-	    return _this;
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(MyDate).call(this, props));
 	  }
 	
 	  _createClass(MyDate, [{
@@ -22203,11 +22196,7 @@
 	          null,
 	          this.props.info
 	        ),
-	        _react2.default.createElement(
-	          'button',
-	          { onClick: this._handleDelete.bind(this) },
-	          'Remove from My Date'
-	        )
+	        _react2.default.createElement('i', { onClick: this._handleDelete.bind(this), className: 'fa fa-trash', 'aria-hidden': 'true' })
 	      );
 	    }
 	  }]);
@@ -22260,9 +22249,17 @@
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'col-xs-12 col-md-5 pic-container' },
-	        this.props.weatherlist.map(function (weather, index) {
-	          return _react2.default.createElement(_weather2.default, { day: weather.title, text: weather.fcttext, image: weather.icon_url, key: index });
-	        })
+	        _react2.default.createElement(
+	          'nav',
+	          null,
+	          _react2.default.createElement(
+	            'ul',
+	            null,
+	            this.props.weatherlist.map(function (weather, index) {
+	              return _react2.default.createElement(_weather2.default, { day: weather.title, text: weather.fcttext, image: weather.icon_url, key: index });
+	            })
+	          )
+	        )
 	      );
 	    }
 	  }]);

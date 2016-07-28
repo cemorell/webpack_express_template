@@ -5,7 +5,6 @@ import SingleEvent from './single-event';
 class MyDate extends React.Component {
   constructor(props){
     super(props);
-    this.state = { display: true}
   }
 
   _handleDelete(e){
@@ -24,7 +23,7 @@ class MyDate extends React.Component {
         <img src={this.props.image} />
         <h4>{this.props.title}</h4>
         <p>{this.props.info}</p>
-        <button onClick={this._handleDelete.bind(this)}>Remove from My Date</button>
+        <i onClick={this._handleDelete.bind(this)} className="fa fa-trash" aria-hidden="true"></i>
 
       </div>
       );
