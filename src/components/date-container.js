@@ -4,7 +4,9 @@ import Search from './search';
 import WeatherList from './weather-list';
 import AllEvents from './all-events';
 import Spotify from './spotify';
+import SelectedEvents from './selected-events';
 import MyDate from './my-date';
+
 
 
 class DateContainer extends React.Component {
@@ -13,11 +15,22 @@ class DateContainer extends React.Component {
     this.state = {
       weatherlist: [],
       events: [],
+      selectedEvents: {},
       music: {},
       link: {},
       image: {},
       owner: {}
     };
+  }
+  componentWillMount(){
+    this.firebaseRef = new Firebase('https://build-a-date.firebaseio.com/build-a-date');
+
+    this.firebaseRef.on("value", (snapshot)=> {
+      this.setState({selectedEvents: snapshot.val()});
+      console.log(this.state.selectedEvents);
+    }, function (errorObject) {
+      console.log("The read failed: " + errorObject.code);
+    });
   }
 
 
@@ -40,6 +53,15 @@ _handleYelp(theme, city) {
       //   console.log('parsing failed', ex)
       // })
   }
+
+
+   componentDidMount(){
+  this._fetchMusic();
+}
+
+
+
+
 
   _fetchMusic(searchTerm) {
     fetch(`//api.spotify.com/v1/search?query=%22${searchTerm}%22&offset=0&limit=20&type=playlist`)
@@ -92,9 +114,9 @@ _handleYelp(theme, city) {
     <div>
       <Search searchYelp={this._handleYelp.bind(this)} music={this._fetchMusic.bind(this)} search={this._fetchWeather.bind(this)}/>
       <Spotify musicinfo={this.state.music}  own={this.state.owner} link={this.state.link} image={this.state.image} />
-      <AllEvents yelplist={this.state.events}/>
+      <AllEvents firebaseRef={this.firebaseRef} yelplist={this.state.events}/>
       <WeatherList weatherlist={this.state.weatherlist}/>
-      <MyDate />
+      <SelectedEvents  events={this.state.selectedEvents}/>
     </div>
     )
   }
