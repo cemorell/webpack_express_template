@@ -35,9 +35,9 @@ class DateContainer extends React.Component {
 
 
 
-_handleYelp(theme, city) {
+_handleYelp(theme) {
 
-    fetch(`/yelp?theme=${theme}&city=${city}`, {
+    fetch(`/yelp?theme=${theme}&city=Austin`, {
       method: 'GET'
     })
       .then((response) => {
@@ -90,9 +90,9 @@ _handleYelp(theme, city) {
   }
 
 
-  _fetchWeather(searchTerm) {
+  _fetchWeather(city) {
 
-    fetch(`//api.wunderground.com/api/64bf88b7ae5575b4/forecast10day/q/TX/${searchTerm}.json`)
+    fetch(`//api.wunderground.com/api/64bf88b7ae5575b4/forecast10day/q/TX/${city}.json`)
       .then((response) => {
         return response.json()
       })
