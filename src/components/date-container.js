@@ -113,10 +113,10 @@ _handleYelp(theme, city) {
     return (
     <div>
       <Search searchYelp={this._handleYelp.bind(this)} music={this._fetchMusic.bind(this)} search={this._fetchWeather.bind(this)}/>
-      <Spotify musicinfo={this.state.music}  own={this.state.owner} link={this.state.link} image={this.state.image} />
       <AllEvents firebaseRef={this.firebaseRef} yelplist={this.state.events}/>
-      <WeatherList weatherlist={this.state.weatherlist}/>
       <SelectedEvents  events={this.state.selectedEvents}/>
+      <Spotify musicinfo={this.state.music}  own={this.state.owner} link={this.state.link} image={this.state.image} />
+      <WeatherList weatherlist={this.state.weatherlist}/>
     </div>
     )
   }
