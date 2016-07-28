@@ -20,19 +20,6 @@ class SingleEvent extends React.Component {
   }
   componentWillMount(){
     this.firebaseRef = new Firebase('https://build-a-date.firebaseio.com/build-a-date');
-
-    this.firebaseRef.once("value", function(snapshot){
-      var savedDates=[];
-      snapshot.forEach(function(data){
-        var savedDate = {
-          image: data.val().image,
-          info: data.val().info,
-          title: data.val().title
-        }
-        savedDates.push(savedDate);
-        this.setState({savedDates: savedDates});
-      });
-    });
   }
 
   render(){
