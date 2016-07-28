@@ -4,7 +4,10 @@ import Search from './search';
 import WeatherList from './weather-list';
 import AllEvents from './all-events';
 import Spotify from './spotify';
+import SelectedEvents from './selected-events';
 import MyDate from './my-date';
+import _ from 'underscore';
+
 
 
 class DateContainer extends React.Component {
@@ -13,11 +16,23 @@ class DateContainer extends React.Component {
     this.state = {
       weatherlist: [],
       events: [],
+      selectedEvents: [],
       music: {},
       link: {},
       image: {},
       owner: {}
     };
+  }
+  componentWillMount(){
+    var ref = new Firebase('https://build-a-date.firebaseio.com/build-a-date');
+
+    ref.on("value", (snapshot)=> {
+      let selectedEvents = _.values(snapshot.val());
+      this.setState({selectedEvents: selectedEvents});
+      console.log(this.state.selectedEvents);
+    }, function (errorObject) {
+      console.log("The read failed: " + errorObject.code);
+    });
   }
 
 _handleYelp(theme, city) {
@@ -101,7 +116,7 @@ _handleYelp(theme, city) {
       <Spotify musicinfo={this.state.music}  own={this.state.owner} link={this.state.link} image={this.state.image} />
       <AllEvents yelplist={this.state.events}/>
       <WeatherList weatherlist={this.state.weatherlist}/>
-      <MyDate />
+      <SelectedEvents  events={this.state.selectedEvents}/>
     </div>
     )
   }
