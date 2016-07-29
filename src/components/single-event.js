@@ -24,7 +24,7 @@ class SingleEvent extends React.Component {
       <img src={this.props.image} />
       <h4>{this.props.title}</h4>
       <p>{this.props.info}</p>
-      <button onClick={this._saveDate.bind(this)}>Add to my date</button>
+      <i onClick={this._saveDate.bind(this)} className="fa fa-heart" aria-hidden="true"></i>
     </div>
     )
   }
