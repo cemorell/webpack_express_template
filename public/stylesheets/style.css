@@ -58,6 +58,8 @@ nav ul{
   border: 3px solid #4ECDC4;
   border-radius: 2px;
   text-decoration: none;
+  list-style: none;
+  padding-left:0;
 }
 
 #spotify-player{
