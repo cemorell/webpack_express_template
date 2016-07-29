@@ -21,7 +21,7 @@ class Search extends React.Component {
   }
 
   _doSearch( activity) {
-    this.props.searchYelp(activity)
+    this.props.imageSearch(activity)
     this.props.search("Austin")
   }
 

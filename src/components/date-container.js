@@ -54,6 +54,25 @@ _handleYelp(theme) {
       // })
   }
 
+  _handleYelpImage(theme) {
+
+    fetch(`/yelp?theme=${theme}&city=Austin`, {
+      method: 'GET'
+    })
+      .then((response) => {
+        return response.json()
+      })
+      .then((results) => {
+        let these = results.businesses
+        this.setState({
+          events: these
+        })
+      })
+      // .catch((ex) => {
+      //   console.log('parsing failed', ex)
+      // })
+  }
+
 
    componentDidMount(){
   this._fetchMusic();
@@ -110,7 +129,7 @@ _handleYelp(theme) {
   render(){
     return (
     <div>
-      <Search searchYelp={this._handleYelp.bind(this)} music={this._fetchMusic.bind(this)} search={this._fetchWeather.bind(this)}/>
+      <Search searchYelp={this._handleYelp.bind(this)} music={this._fetchMusic.bind(this)} search={this._fetchWeather.bind(this)} imageSearch={this._handleYelpImage.bind(this)}/>
       <AllEvents firebaseRef={this.firebaseRef} yelplist={this.state.events}/>
       <SelectedEvents  events={this.state.selectedEvents}/>
       <Spotify musicinfo={this.state.music}  own={this.state.owner} link={this.state.link} image={this.state.image} />
