@@ -66,3 +66,12 @@ nav ul{
 a {
   color: #00B7FF;
 }
+
+.image-button {
+  height: 150px;
+  width: 200px;
+}
+
+.btn-primary{
+  margin-top: 10px;
+ }

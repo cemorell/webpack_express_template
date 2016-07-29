@@ -21180,10 +21180,10 @@
 	    }
 	  }, {
 	    key: '_handleYelp',
-	    value: function _handleYelp(theme, city) {
+	    value: function _handleYelp(theme) {
 	      var _this3 = this;
 	
-	      fetch('/yelp?theme=' + theme + '&city=' + city, {
+	      fetch('/yelp?theme=' + theme + '&city=Austin', {
 	        method: 'GET'
 	      }).then(function (response) {
 	        return response.json();
@@ -21231,10 +21231,10 @@
 	    }
 	  }, {
 	    key: '_fetchWeather',
-	    value: function _fetchWeather(searchTerm) {
+	    value: function _fetchWeather(city) {
 	      var _this5 = this;
 	
-	      fetch('//api.wunderground.com/api/64bf88b7ae5575b4/forecast10day/q/TX/' + searchTerm + '.json').then(function (response) {
+	      fetch('//api.wunderground.com/api/64bf88b7ae5575b4/forecast10day/q/TX/' + city + '.json').then(function (response) {
 	        return response.json();
 	      }).then(function (results) {
 	        var week = results.forecast.txt_forecast.forecastday;
@@ -21754,10 +21754,19 @@
 	    value: function _handleSearch(event) {
 	      event.preventDefault();
 	
-	      this.props.search(this.refs.city.value);
-	      this.props.searchYelp(this.refs.themeSearch.value, this.refs.city.value);
+	      this.props.searchYelp(this.refs.themeSearch.value);
 	      this.props.music(this.refs.playlist.value);
+	      this.props.search("Austin");
 	    }
+	  }, {
+	    key: '_doSearch',
+	    value: function _doSearch(activity) {
+	      this.props.searchYelp(activity);
+	      this.props.search("Austin");
+	    }
+	
+	    // <input type="search" placeholder="What City?" ref="city"  />
+	
 	  }, {
 	    key: 'render',
 	    value: function render() {
@@ -21768,9 +21777,97 @@
 	          'form',
 	          { onSubmit: this._handleSearch.bind(this), id: 'searchForm' },
 	          _react2.default.createElement('input', { type: 'search', placeholder: 'What theme?', ref: 'themeSearch' }),
-	          _react2.default.createElement('input', { type: 'search', placeholder: 'What City?', ref: 'city' }),
 	          _react2.default.createElement('input', { type: 'search', placeholder: 'What playlist?', ref: 'playlist' }),
 	          _react2.default.createElement('input', { type: 'submit', value: 'Search on!' })
+	        ),
+	        _react2.default.createElement(
+	          'button',
+	          { className: 'btn btn-primary', type: 'button', 'data-toggle': 'collapse', 'data-target': '#collapseExample', 'aria-expanded': 'false', 'aria-controls': 'collapseExample' },
+	          'Need Suggestions?'
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'collapse', id: 'collapseExample' },
+	          _react2.default.createElement(
+	            'button',
+	            { onClick: this._doSearch.bind(this, 'romantic dinner'), href: '#' },
+	            _react2.default.createElement('img', { className: 'image-button', src: './images/romantic-dinner.jpg' })
+	          ),
+	          _react2.default.createElement(
+	            'button',
+	            { onClick: this._doSearch.bind(this, 'performing arts'), href: '#' },
+	            _react2.default.createElement('img', { className: 'image-button', src: './images/performing-arts.jpg' })
+	          ),
+	          _react2.default.createElement(
+	            'button',
+	            { onClick: this._doSearch.bind(this, 'farmers market'), href: '#' },
+	            _react2.default.createElement('img', { className: 'image-button', src: './images/farmers.jpg' })
+	          ),
+	          _react2.default.createElement(
+	            'button',
+	            { onClick: this._doSearch.bind(this, 'brewery'), href: '#' },
+	            _react2.default.createElement('img', { className: 'image-button', src: './images/beer.jpg' })
+	          ),
+	          _react2.default.createElement(
+	            'button',
+	            { onClick: this._doSearch.bind(this, 'hiking'), href: '#' },
+	            _react2.default.createElement('img', { className: 'image-button', src: './images/outdoors.jpg' })
+	          ),
+	          _react2.default.createElement(
+	            'button',
+	            { onClick: this._doSearch.bind(this, 'dancing'), href: '#' },
+	            _react2.default.createElement('img', { className: 'image-button', src: './images/dancing.jpg' })
+	          ),
+	          _react2.default.createElement(
+	            'button',
+	            { onClick: this._doSearch.bind(this, 'movies'), href: '#' },
+	            _react2.default.createElement('img', { className: 'image-button', src: './images/movies.jpg' })
+	          ),
+	          _react2.default.createElement(
+	            'button',
+	            { onClick: this._doSearch.bind(this, 'relaxing'), href: '#' },
+	            _react2.default.createElement('img', { className: 'image-button', src: './images/relaxing.jpg' })
+	          ),
+	          _react2.default.createElement(
+	            'button',
+	            { onClick: this._doSearch.bind(this, 'dive bar'), href: '#' },
+	            _react2.default.createElement('img', { className: 'image-button', src: './images/dive-bar.jpg' })
+	          ),
+	          _react2.default.createElement(
+	            'button',
+	            { onClick: this._doSearch.bind(this, 'staycation'), href: '#' },
+	            _react2.default.createElement('img', { className: 'image-button', src: './images/staycation.jpg' })
+	          ),
+	          _react2.default.createElement(
+	            'button',
+	            { onClick: this._doSearch.bind(this, 'brunch'), href: '#' },
+	            _react2.default.createElement('img', { className: 'image-button', src: './images/brunch.jpg' })
+	          ),
+	          _react2.default.createElement(
+	            'button',
+	            { onClick: this._doSearch.bind(this, 'arts'), href: '#' },
+	            _react2.default.createElement('img', { className: 'image-button', src: './images/art-class.jpg' })
+	          ),
+	          _react2.default.createElement(
+	            'button',
+	            { onClick: this._doSearch.bind(this, 'blind date'), href: '#' },
+	            _react2.default.createElement('img', { className: 'image-button', src: './images/blind-date.jpg' })
+	          ),
+	          _react2.default.createElement(
+	            'button',
+	            { onClick: this._doSearch.bind(this, 'adventure'), href: '#' },
+	            _react2.default.createElement('img', { className: 'image-button', src: './images/adventure.jpg' })
+	          ),
+	          _react2.default.createElement(
+	            'button',
+	            { onClick: this._doSearch.bind(this, 'winery'), href: '#' },
+	            _react2.default.createElement('img', { className: 'image-button', src: './images/winery.jpg' })
+	          ),
+	          _react2.default.createElement(
+	            'button',
+	            { onClick: this._doSearch.bind(this, 'comedy'), href: '#' },
+	            _react2.default.createElement('img', { className: 'image-button', src: './images/comedy.jpg' })
+	          )
 	        )
 	      );
 	    }
