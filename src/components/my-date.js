@@ -22,9 +22,10 @@ class MyDate extends React.Component {
       <div className="col-xs-12 col-md-5 oneevent">
         <img src={this.props.image} />
         <h4>{this.props.title}</h4>
+        <button>
+          <i onClick={this._handleDelete.bind(this)} className="fa fa-trash" aria-hidden="true"></i>
+        </button>
         <p>{this.props.info}</p>
-        <i onClick={this._handleDelete.bind(this)} className="fa fa-trash" aria-hidden="true"></i>
-
       </div>
       );
   }

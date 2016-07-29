@@ -21180,16 +21180,35 @@
 	    }
 	  }, {
 	    key: '_handleYelp',
-	    value: function _handleYelp(theme, city) {
+	    value: function _handleYelp(theme) {
 	      var _this3 = this;
 	
-	      fetch('/yelp?theme=' + theme + '&city=' + city, {
+	      fetch('/yelp?theme=' + theme + '&city=Austin', {
 	        method: 'GET'
 	      }).then(function (response) {
 	        return response.json();
 	      }).then(function (results) {
 	        var these = results.businesses;
 	        _this3.setState({
+	          events: these
+	        });
+	      });
+	      // .catch((ex) => {
+	      //   console.log('parsing failed', ex)
+	      // })
+	    }
+	  }, {
+	    key: '_handleYelpImage',
+	    value: function _handleYelpImage(theme) {
+	      var _this4 = this;
+	
+	      fetch('/yelp?theme=' + theme + '&city=Austin', {
+	        method: 'GET'
+	      }).then(function (response) {
+	        return response.json();
+	      }).then(function (results) {
+	        var these = results.businesses;
+	        _this4.setState({
 	          events: these
 	        });
 	      });
@@ -21205,7 +21224,7 @@
 	  }, {
 	    key: '_fetchMusic',
 	    value: function _fetchMusic(searchTerm) {
-	      var _this4 = this;
+	      var _this5 = this;
 	
 	      fetch('//api.spotify.com/v1/search?query=%22' + searchTerm + '%22&offset=0&limit=20&type=playlist').then(function (response) {
 	        return response.json();
@@ -21218,7 +21237,7 @@
 	        var all = own + id;
 	        console.log(own);
 	        console.log(all);
-	        _this4.setState({
+	        _this5.setState({
 	          music: playlist,
 	          link: open,
 	          image: view,
@@ -21231,14 +21250,14 @@
 	    }
 	  }, {
 	    key: '_fetchWeather',
-	    value: function _fetchWeather(searchTerm) {
-	      var _this5 = this;
+	    value: function _fetchWeather(city) {
+	      var _this6 = this;
 	
-	      fetch('//api.wunderground.com/api/64bf88b7ae5575b4/forecast10day/q/TX/' + searchTerm + '.json').then(function (response) {
+	      fetch('//api.wunderground.com/api/64bf88b7ae5575b4/forecast10day/q/TX/' + city + '.json').then(function (response) {
 	        return response.json();
 	      }).then(function (results) {
 	        var week = results.forecast.txt_forecast.forecastday;
-	        _this5.setState({
+	        _this6.setState({
 	          weatherlist: week
 	        });
 	      }).catch(function (ex) {
@@ -21251,11 +21270,11 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement(_search2.default, { searchYelp: this._handleYelp.bind(this), music: this._fetchMusic.bind(this), search: this._fetchWeather.bind(this) }),
+	        _react2.default.createElement(_search2.default, { searchYelp: this._handleYelp.bind(this), music: this._fetchMusic.bind(this), search: this._fetchWeather.bind(this), imageSearch: this._handleYelpImage.bind(this) }),
 	        _react2.default.createElement(_allEvents2.default, { firebaseRef: this.firebaseRef, yelplist: this.state.events }),
-	        _react2.default.createElement(_selectedEvents2.default, { events: this.state.selectedEvents }),
 	        _react2.default.createElement(_spotify2.default, { musicinfo: this.state.music, own: this.state.owner, link: this.state.link, image: this.state.image }),
-	        _react2.default.createElement(_weatherList2.default, { weatherlist: this.state.weatherlist })
+	        _react2.default.createElement(_weatherList2.default, { weatherlist: this.state.weatherlist }),
+	        _react2.default.createElement(_selectedEvents2.default, { events: this.state.selectedEvents })
 	      );
 	    }
 	  }]);
@@ -21754,10 +21773,24 @@
 	    value: function _handleSearch(event) {
 	      event.preventDefault();
 	
-	      this.props.search(this.refs.city.value);
-	      this.props.searchYelp(this.refs.themeSearch.value, this.refs.city.value);
+	      this.props.searchYelp(this.refs.themeSearch.value);
+	      this.props.search("Austin");
+	    }
+	  }, {
+	    key: '_handleMusic',
+	    value: function _handleMusic(event) {
+	      event.preventDefault();
 	      this.props.music(this.refs.playlist.value);
 	    }
+	  }, {
+	    key: '_doSearch',
+	    value: function _doSearch(activity) {
+	      this.props.imageSearch(activity);
+	      this.props.search("Austin");
+	    }
+	
+	    // <input type="search" placeholder="What City?" ref="city"  />
+	
 	  }, {
 	    key: 'render',
 	    value: function render() {
@@ -21765,12 +21798,109 @@
 	        'div',
 	        { id: 'searchContainer' },
 	        _react2.default.createElement(
-	          'form',
-	          { onSubmit: this._handleSearch.bind(this), id: 'searchForm' },
-	          _react2.default.createElement('input', { type: 'search', placeholder: 'What theme?', ref: 'themeSearch' }),
-	          _react2.default.createElement('input', { type: 'search', placeholder: 'What City?', ref: 'city' }),
-	          _react2.default.createElement('input', { type: 'search', placeholder: 'What playlist?', ref: 'playlist' }),
-	          _react2.default.createElement('input', { type: 'submit', value: 'Search on!' })
+	          'div',
+	          { className: 'searchFormContainer' },
+	          _react2.default.createElement(
+	            'form',
+	            { onSubmit: this._handleSearch.bind(this), className: 'searchForm' },
+	            _react2.default.createElement('input', { type: 'search', placeholder: 'What theme?', ref: 'themeSearch' }),
+	            _react2.default.createElement('input', { type: 'submit', value: 'Find Date Ideas' })
+	          ),
+	          _react2.default.createElement(
+	            'form',
+	            { onSubmit: this._handleMusic.bind(this), className: 'searchForm' },
+	            _react2.default.createElement('input', { type: 'search', placeholder: 'What playlist?', ref: 'playlist' }),
+	            _react2.default.createElement('input', { type: 'submit', value: 'Set the Mood' })
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'button',
+	          { className: 'btn btn-primary', type: 'button', 'data-toggle': 'collapse', 'data-target': '#collapseExample', 'aria-expanded': 'false', 'aria-controls': 'collapseExample' },
+	          'Need Suggestions?'
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'collapse', id: 'collapseExample' },
+	          _react2.default.createElement(
+	            'button',
+	            { onClick: this._doSearch.bind(this, 'romantic dinner'), href: '#' },
+	            _react2.default.createElement('img', { className: 'image-button', src: './images/romantic-dinner.jpg' })
+	          ),
+	          _react2.default.createElement(
+	            'button',
+	            { onClick: this._doSearch.bind(this, 'performing arts'), href: '#' },
+	            _react2.default.createElement('img', { className: 'image-button', src: './images/performing-arts.jpg' })
+	          ),
+	          _react2.default.createElement(
+	            'button',
+	            { onClick: this._doSearch.bind(this, 'farmers market'), href: '#' },
+	            _react2.default.createElement('img', { className: 'image-button', src: './images/farmers.jpg' })
+	          ),
+	          _react2.default.createElement(
+	            'button',
+	            { onClick: this._doSearch.bind(this, 'brewery'), href: '#' },
+	            _react2.default.createElement('img', { className: 'image-button', src: './images/beer.jpg' })
+	          ),
+	          _react2.default.createElement(
+	            'button',
+	            { onClick: this._doSearch.bind(this, 'hiking'), href: '#' },
+	            _react2.default.createElement('img', { className: 'image-button', src: './images/outdoors.jpg' })
+	          ),
+	          _react2.default.createElement(
+	            'button',
+	            { onClick: this._doSearch.bind(this, 'dancing'), href: '#' },
+	            _react2.default.createElement('img', { className: 'image-button', src: './images/dancing.jpg' })
+	          ),
+	          _react2.default.createElement(
+	            'button',
+	            { onClick: this._doSearch.bind(this, 'movies'), href: '#' },
+	            _react2.default.createElement('img', { className: 'image-button', src: './images/movies.jpg' })
+	          ),
+	          _react2.default.createElement(
+	            'button',
+	            { onClick: this._doSearch.bind(this, 'relaxing'), href: '#' },
+	            _react2.default.createElement('img', { className: 'image-button', src: './images/relaxing.jpg' })
+	          ),
+	          _react2.default.createElement(
+	            'button',
+	            { onClick: this._doSearch.bind(this, 'dive bar'), href: '#' },
+	            _react2.default.createElement('img', { className: 'image-button', src: './images/dive-bar.jpg' })
+	          ),
+	          _react2.default.createElement(
+	            'button',
+	            { onClick: this._doSearch.bind(this, 'staycation'), href: '#' },
+	            _react2.default.createElement('img', { className: 'image-button', src: './images/staycation.jpg' })
+	          ),
+	          _react2.default.createElement(
+	            'button',
+	            { onClick: this._doSearch.bind(this, 'brunch'), href: '#' },
+	            _react2.default.createElement('img', { className: 'image-button', src: './images/brunch.jpg' })
+	          ),
+	          _react2.default.createElement(
+	            'button',
+	            { onClick: this._doSearch.bind(this, 'arts'), href: '#' },
+	            _react2.default.createElement('img', { className: 'image-button', src: './images/art-class.jpg' })
+	          ),
+	          _react2.default.createElement(
+	            'button',
+	            { onClick: this._doSearch.bind(this, 'blind date'), href: '#' },
+	            _react2.default.createElement('img', { className: 'image-button', src: './images/blind-date.jpg' })
+	          ),
+	          _react2.default.createElement(
+	            'button',
+	            { onClick: this._doSearch.bind(this, 'adventure'), href: '#' },
+	            _react2.default.createElement('img', { className: 'image-button', src: './images/adventure.jpg' })
+	          ),
+	          _react2.default.createElement(
+	            'button',
+	            { onClick: this._doSearch.bind(this, 'winery'), href: '#' },
+	            _react2.default.createElement('img', { className: 'image-button', src: './images/winery.jpg' })
+	          ),
+	          _react2.default.createElement(
+	            'button',
+	            { onClick: this._doSearch.bind(this, 'comedy'), href: '#' },
+	            _react2.default.createElement('img', { className: 'image-button', src: './images/comedy.jpg' })
+	          )
 	        )
 	      );
 	    }
@@ -21824,6 +21954,11 @@
 	      return _react2.default.createElement(
 	        'div',
 	        { id: 'spotify-player', className: 'col-xs-12 col-md-4' },
+	        _react2.default.createElement(
+	          'h3',
+	          null,
+	          'Playlist for your date!'
+	        ),
 	        _react2.default.createElement(_reactSpotifyPlayer2.default, {
 	          uri: this.props.own,
 	          size: 'large',
@@ -22045,7 +22180,12 @@
 	
 	      return _react2.default.createElement(
 	        'div',
-	        { className: 'col-xs-12 col-md-5', id: 'all-events' },
+	        { className: 'col-xs-12 col-md-5 results-container', id: 'all-events' },
+	        _react2.default.createElement(
+	          'h3',
+	          null,
+	          'Ideas for your date!'
+	        ),
 	        _react2.default.createElement(
 	          'nav',
 	          { id: 'events' },
@@ -22128,11 +22268,20 @@
 	          this.props.title
 	        ),
 	        _react2.default.createElement(
+	          'button',
+	          null,
+	          _react2.default.createElement('i', { onClick: this._saveDate.bind(this), className: 'fa fa-heart', 'aria-hidden': 'true' })
+	        ),
+	        _react2.default.createElement(
+	          'p',
+	          null,
+	          'Add to my date'
+	        ),
+	        _react2.default.createElement(
 	          'p',
 	          null,
 	          this.props.info
-	        ),
-	        _react2.default.createElement('i', { onClick: this._saveDate.bind(this), className: 'fa fa-heart', 'aria-hidden': 'true' })
+	        )
 	      );
 	    }
 	  }]);
@@ -22200,11 +22349,15 @@
 	          this.props.title
 	        ),
 	        _react2.default.createElement(
+	          'button',
+	          null,
+	          _react2.default.createElement('i', { onClick: this._handleDelete.bind(this), className: 'fa fa-trash', 'aria-hidden': 'true' })
+	        ),
+	        _react2.default.createElement(
 	          'p',
 	          null,
 	          this.props.info
-	        ),
-	        _react2.default.createElement('i', { onClick: this._handleDelete.bind(this), className: 'fa fa-trash', 'aria-hidden': 'true' })
+	        )
 	      );
 	    }
 	  }]);
@@ -22260,6 +22413,11 @@
 	        _react2.default.createElement(
 	          'nav',
 	          null,
+	          _react2.default.createElement(
+	            'h3',
+	            null,
+	            'Weather'
+	          ),
 	          _react2.default.createElement(
 	            'ul',
 	            null,
@@ -22323,10 +22481,15 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-	        { className: 'col-xs-12 col-md-7', id: 'the-date' },
+	        { className: 'col-xs-12 col-md-11', id: 'the-date' },
 	        _react2.default.createElement(
 	          'nav',
 	          null,
+	          _react2.default.createElement(
+	            'h4',
+	            null,
+	            'My Date'
+	          ),
 	          _react2.default.createElement(
 	            'ul',
 	            null,

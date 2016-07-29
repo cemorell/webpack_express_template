@@ -11,7 +11,7 @@ class Spotify extends React.Component {
   render(){
     return (
     <div id="spotify-player" className="col-xs-12 col-md-4">
-
+    <h3>Playlist for your date!</h3>
     <SpotifyPlayer
       uri= {this.props.own}
       size="large"

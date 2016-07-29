@@ -11,8 +11,9 @@ constructor(props){
 
   render(){
     return (
-      <div className="col-xs-12 col-md-7" id="the-date">
+      <div className="col-xs-12 col-md-11" id="the-date">
       <nav>
+        <h4>My Date</h4>
         <ul>
           { _.map(this.props.events, (event, id) => {
               return (
