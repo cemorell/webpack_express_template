@@ -35,9 +35,28 @@ class DateContainer extends React.Component {
 
 
 
-_handleYelp(theme, city) {
+_handleYelp(theme) {
 
-    fetch(`/yelp?theme=${theme}&city=${city}`, {
+    fetch(`/yelp?theme=${theme}&city=Austin`, {
+      method: 'GET'
+    })
+      .then((response) => {
+        return response.json()
+      })
+      .then((results) => {
+        let these = results.businesses
+        this.setState({
+          events: these
+        })
+      })
+      // .catch((ex) => {
+      //   console.log('parsing failed', ex)
+      // })
+  }
+
+  _handleYelpImage(theme) {
+
+    fetch(`/yelp?theme=${theme}&city=Austin`, {
       method: 'GET'
     })
       .then((response) => {
@@ -88,9 +107,9 @@ _handleYelp(theme, city) {
   }
 
 
-  _fetchWeather(searchTerm) {
+  _fetchWeather(city) {
 
-    fetch(`//api.wunderground.com/api/64bf88b7ae5575b4/forecast10day/q/TX/${searchTerm}.json`)
+    fetch(`//api.wunderground.com/api/64bf88b7ae5575b4/forecast10day/q/TX/${city}.json`)
       .then((response) => {
         return response.json()
       })
@@ -110,7 +129,7 @@ _handleYelp(theme, city) {
   render(){
     return (
     <div>
-      <Search searchYelp={this._handleYelp.bind(this)} music={this._fetchMusic.bind(this)} search={this._fetchWeather.bind(this)}/>
+      <Search searchYelp={this._handleYelp.bind(this)} music={this._fetchMusic.bind(this)} search={this._fetchWeather.bind(this)} imageSearch={this._handleYelpImage.bind(this)}/>
       <AllEvents firebaseRef={this.firebaseRef} yelplist={this.state.events}/>
       <SelectedEvents  events={this.state.selectedEvents}/>
       <Spotify musicinfo={this.state.music}  own={this.state.owner} link={this.state.link} image={this.state.image} />
