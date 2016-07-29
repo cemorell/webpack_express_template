@@ -21,11 +21,14 @@ body {
 }
 #searchContainer{
   text-align: center;
-  text-align: center;
   background-color: #494949;
   padding: 2% 0;
+
 }
-#searchForm input{
+.searchFormContainer form{
+  display: inline;
+}
+.searchForm input{
 
   display: inline-block;
   padding: 1%;
@@ -68,3 +71,12 @@ nav ul{
 a {
   color: #00B7FF;
 }
+
+.image-button {
+  height: 150px;
+  width: 200px;
+}
+
+.btn-primary{
+  margin-top: 10px;
+ }
