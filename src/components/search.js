@@ -37,11 +37,11 @@ class Search extends React.Component {
       <div className="searchFormContainer">
         <form onSubmit={ this._handleSearch.bind(this) } className="searchForm" >
           <input type="search" placeholder="What theme?" ref="themeSearch"  />
-          <input type="submit" value="Search on!" />
+          <input type="submit" value="Find Date Ideas" />
         </form>
         <form onSubmit={ this._handleMusic.bind(this) } className="searchForm" >
           <input type="search" placeholder="What playlist?" ref="playlist"  />
-          <input type="submit" value="Set the mood!" />
+          <input type="submit" value="Set the Mood" />
         </form>
       </div>
 

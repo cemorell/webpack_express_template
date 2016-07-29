@@ -23,8 +23,11 @@ class SingleEvent extends React.Component {
     <div className="oneevent">
       <img src={this.props.image} />
       <h4>{this.props.title}</h4>
+      <button>
+        <i onClick={this._saveDate.bind(this)} className="fa fa-heart" aria-hidden="true"></i>
+      </button>
+      <p>Add to my date</p>
       <p>{this.props.info}</p>
-      <i onClick={this._saveDate.bind(this)} className="fa fa-heart" aria-hidden="true"></i>
     </div>
     )
   }
