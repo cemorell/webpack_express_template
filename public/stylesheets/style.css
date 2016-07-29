@@ -21,11 +21,14 @@ body {
 }
 #searchContainer{
   text-align: center;
-  text-align: center;
   background-color: #494949;
   padding: 2% 0;
+
 }
-#searchForm input{
+.searchFormContainer form{
+  display: inline;
+}
+.searchForm input{
 
   display: inline-block;
   padding: 1%;

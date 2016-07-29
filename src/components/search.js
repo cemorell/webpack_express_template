@@ -14,11 +14,15 @@ class Search extends React.Component {
 
 
     this.props.searchYelp(this.refs.themeSearch.value);
-    this.props.music(this.refs.playlist.value);
     this.props.search("Austin")
 
 
   }
+
+  _handleMusic(event) {
+    event.preventDefault();
+    this.props.music(this.refs.playlist.value);
+}
 
   _doSearch( activity) {
     this.props.imageSearch(activity)
@@ -30,11 +34,18 @@ class Search extends React.Component {
   render(){
     return (
     <div id="searchContainer">
-      <form onSubmit={ this._handleSearch.bind(this) } id="searchForm" >
-        <input type="search" placeholder="What theme?" ref="themeSearch"  />
-        <input type="search" placeholder="What playlist?" ref="playlist"  />
-        <input type="submit" value="Search on!" />
-      </form>
+      <div className="searchFormContainer">
+        <form onSubmit={ this._handleSearch.bind(this) } className="searchForm" >
+          <input type="search" placeholder="What theme?" ref="themeSearch"  />
+          <input type="submit" value="Search on!" />
+        </form>
+        <form onSubmit={ this._handleMusic.bind(this) } className="searchForm" >
+          <input type="search" placeholder="What playlist?" ref="playlist"  />
+          <input type="submit" value="Set the mood!" />
+        </form>
+      </div>
+
+
       <button className="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
       Need Suggestions?
       </button>
