@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title><%= title %></title>
+    <title>Build-A-Date</title>
     <!-- FONT AWESOME -->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
     <!-- BOOTSWATCH -->
@@ -14,7 +14,10 @@
     <script src="https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
   </head>
   <body class="container-fluid" >
-    <h1 class="row"><%= title %></h1>
+    <div id="heading-container">
+      <h1 class="row" id="heading">Build-A-Date</h1>
+      <img id="logo" src="/images/buildadatelogo.png">
+    </div>
     <div id="dates"></div>
   <script src="/javascripts/bundle.js"></script>
   <!-- Firebase -->

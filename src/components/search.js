@@ -21,8 +21,8 @@ class Search extends React.Component {
 
   render(){
     return (
-    <div>
-      <form onSubmit={ this._handleSearch.bind(this) }>
+    <div id="searchContainer">
+      <form onSubmit={ this._handleSearch.bind(this) } id="searchForm" >
         <input type="search" placeholder="What theme?" ref="themeSearch"  />
         <input type="search" placeholder="What City?" ref="city"  />
         <input type="search" placeholder="What playlist?" ref="playlist"  />
