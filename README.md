@@ -1,7 +1,7 @@
 # Build-A-Date
 
 Co-Creators:
-  * Camille Morelle (Github: cemorelle)
+  * Camille Morell (Github: cemorell)
   * Michael Malleske (Github: mmalleske)
   * Alfredo Amengual (Github: aamengual14)
 
